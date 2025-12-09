@@ -1,17 +1,20 @@
+/* --- Variables & Configuration de base --- */
 :root {
-    --bg-color: #0d1117;
-    --text-color: #c9d1d9;
-    --card-bg: #161b22;
-    --accent-color: #00ff41;
+    /* Thème Sombre (Par défaut pour la cybersec) */
+    --bg-color: #0d1117;       /* Fond très sombre (style GitHub Dark) */
+    --text-color: #c9d1d9;     /* Texte gris clair */
+    --card-bg: #161b22;        /* Fond des cartes */
+    --accent-color: #00ff41;   /* Vert Terminal/Matrix */
     --border-color: #30363d;
-    --font-main: 'Fira Code', monospace;
+    --font-main: 'Fira Code', monospace; /* Police style code */
 }
 
+/* Thème Clair (activé via JS) */
 body.light-mode {
     --bg-color: #ffffff;
     --text-color: #24292f;
     --card-bg: #f6f8fa;
-    --accent-color: #0969da;
+    --accent-color: #0969da;   /* Bleu plus lisible sur fond blanc */
     --border-color: #d0d7de;
 }
 
@@ -19,7 +22,7 @@ body.light-mode {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: all 0.3s ease; /* Transition généralisée pour l'animation du menu */
+    transition: background-color 0.3s, color 0.3s; /* Transition douce */
 }
 
 body {
@@ -27,7 +30,6 @@ body {
     color: var(--text-color);
     font-family: var(--font-main);
     line-height: 1.6;
-    overflow-x: hidden; /* Empêche le défilement horizontal */
 }
 
 /* --- Navigation --- */
@@ -37,9 +39,6 @@ body {
     align-items: center;
     padding: 1.5rem 2rem;
     border-bottom: 1px solid var(--border-color);
-    background-color: var(--bg-color);
-    position: relative;
-    z-index: 1000;
 }
 
 .logo {
@@ -48,39 +47,16 @@ body {
     color: var(--accent-color);
 }
 
-.nav-menu {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    gap: 2rem;
-}
-
-.nav-link {
+.nav-links a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 1.1rem;
+    margin-right: 1.5rem;
 }
 
-.nav-link:hover {
+.nav-links a:hover {
     color: var(--accent-color);
 }
 
-/* --- Hamburger Icon (Caché sur PC) --- */
-.hamburger {
-    display: none;
-    cursor: pointer;
-}
-
-.bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background-color: var(--text-color);
-    transition: all 0.3s ease-in-out;
-}
-
-/* --- Theme Button --- */
 #theme-toggle {
     background: none;
     border: 1px solid var(--border-color);
@@ -91,68 +67,87 @@ body {
     font-family: inherit;
 }
 
-/* --- Responsive & Mobile Menu (Pour les écrans < 768px) --- */
-@media (max-width: 768px) {
-    .hamburger {
-        display: block; /* On affiche le hamburger */
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0; /* Cache la barre du milieu */
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg); /* Tourne la barre 1 */
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg); /* Tourne la barre 3 */
-    }
-
-    .nav-menu {
-        position: fixed;
-        left: -100%; /* Caché hors de l'écran à gauche */
-        top: 70px; /* Juste en dessous de la barre navbar */
-        flex-direction: column;
-        background-color: var(--bg-color);
-        width: 100%;
-        text-align: center;
-        border-bottom: 1px solid var(--border-color);
-        padding: 2rem 0;
-    }
-
-    .nav-menu.active {
-        left: 0; /* On ramène le menu sur l'écran */
-    }
-
-    .nav-item {
-        margin: 1.5rem 0;
-    }
-}
-
-/* --- Le reste du CSS (Hero, Grid, Footer) reste identique --- */
+/* --- Hero Section --- */
 .hero {
     text-align: center;
     padding: 4rem 1rem;
     border-bottom: 1px dashed var(--border-color);
 }
-.hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-.highlight { color: var(--accent-color); }
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.highlight {
+    color: var(--accent-color);
+}
+
 .btn {
     display: inline-block;
     margin-top: 2rem;
     padding: 0.8rem 1.5rem;
+    background-color: transparent;
     border: 1px solid var(--accent-color);
     color: var(--accent-color);
     text-decoration: none;
     font-weight: bold;
 }
-.btn:hover { background-color: var(--accent-color); color: var(--bg-color); }
-.container { max-width: 1000px; margin: 3rem auto; padding: 0 1rem; }
-h2 { margin-bottom: 2rem; border-left: 5px solid var(--accent-color); padding-left: 1rem; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-.card { background-color: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 6px; }
-.card h3 { margin-bottom: 1rem; color: var(--accent-color); }
-.read-more { display: block; margin-top: 1rem; color: var(--text-color); font-size: 0.9rem; text-decoration: none; }
-.read-more:hover { text-decoration: underline; }
-footer { text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid var(--border-color); opacity: 0.7; font-size: 0.8rem; }
+
+.btn:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color); /* Inversion des couleurs au survol */
+}
+
+/* --- Grille d'articles --- */
+.container {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+h2 {
+    margin-bottom: 2rem;
+    border-left: 5px solid var(--accent-color);
+    padding-left: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.card h3 {
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.read-more {
+    display: block;
+    margin-top: 1rem;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
