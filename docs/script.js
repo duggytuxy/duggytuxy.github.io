@@ -1,40 +1,30 @@
+// On sélectionne le bouton et le corps de la page
 const toggleButton = document.getElementById('theme-toggle');
 const body = document.body;
-const hamburger = document.querySelector(".hamburger");
-const navMenu = document.querySelector(".nav-menu");
-const navLink = document.querySelectorAll(".nav-link");
 
-// --- Gestion du Thème (Code précédent) ---
+// Vérifier si l'utilisateur a déjà une préférence enregistrée
 const currentTheme = localStorage.getItem('theme');
+
+// Si un thème est sauvegardé, on l'applique
 if (currentTheme) {
     body.classList.add(currentTheme);
+    // Met à jour l'icône du bouton si nécessaire
     if (currentTheme === 'light-mode') {
-        toggleButton.textContent = '🌙';
+        toggleButton.textContent = '🌙'; // Lune pour passer en mode sombre
     }
 }
 
+// Écouter le clic sur le bouton
 toggleButton.addEventListener('click', () => {
+    // Ajouter ou enlever la classe 'light-mode'
     body.classList.toggle('light-mode');
+
+    // Vérifier si la classe est présente pour savoir quel thème est actif
     if (body.classList.contains('light-mode')) {
         toggleButton.textContent = '🌙';
-        localStorage.setItem('theme', 'light-mode');
+        localStorage.setItem('theme', 'light-mode'); // Sauvegarder "light-mode"
     } else {
         toggleButton.textContent = '☀️';
-        localStorage.removeItem('theme');
+        localStorage.removeItem('theme'); // Revenir au défaut (sombre)
     }
 });
-
-// --- Gestion du Menu Hamburger ---
-
-// Quand on clique sur le hamburger
-hamburger.addEventListener("click", () => {
-    // On active/désactive le menu
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
-});
-
-// Quand on clique sur un lien du menu, on ferme le menu
-navLink.forEach(n => n.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
-}));
