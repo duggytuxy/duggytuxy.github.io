@@ -327,6 +327,15 @@
                                     </a>
                                 </div>
                             </div>
+
+                            <a href="https://ko-fi.com/laurentmduggytuxy" target="_blank" class="link-card mb-0 py-2">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-mug-hot link-icon text-danger"></i>
+                                    <span id="labelKofi">Faire un don (Ko-Fi)</span>
+                                </div>
+                                <i class="fas fa-heart small text-danger"></i>
+                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -377,7 +386,8 @@
                 labelCV: "Mon CV",
                 projectTitle: "Projet Vedette",
                 projectDesc: "Une liste de blocage IPv4 robuste pour la sécurité réseau.",
-				footerText: "Fait avec passion."
+				footerText: "Fait avec passion.",
+                labelKofi: "Faire un don (Ko-Fi)"
             },
             en: {
                 bio: "Security | Cybersecurity Engineer & Open Source Enthusiast",
@@ -386,7 +396,8 @@
                 labelCV: "My Resume",
                 projectTitle: "Featured Project",
                 projectDesc: "A robust IPv4 blocklist for network security.",
-				footerText: "Made with passion."
+				footerText: "Made with passion.",
+                labelKofi: "Donate (Ko-Fi)"
             },
             es: {
                 bio: "Ingeniero de Seguridad | Ciberseguridad y apasionado del Open Source",
@@ -395,7 +406,8 @@
                 labelCV: "Mi Currículum",
                 projectTitle: "Proyecto Destacado",
                 projectDesc: "Una lista de bloqueo IPv4 robusta para seguridad de red.",
-				footerText: "Hecho con pasión."
+				footerText: "Hecho con pasión.",
+                labelKofi: "Hacer donación (Ko-Fi)"
             }
         };
 
@@ -409,6 +421,7 @@
             document.getElementById('projectTitle').textContent = t.projectTitle;
             document.getElementById('projectDesc').textContent = t.projectDesc;
             document.getElementById('footerText').textContent = t.footerText;
+            document.getElementById('labelKofi').textContent = t.labelKofi;
             document.documentElement.lang = lang;
         }
     </script>
