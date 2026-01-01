@@ -38,7 +38,8 @@
             flex-direction: column;
             align-items: center;
             transition: background-color 0.3s ease, color 0.3s ease;
-			background: url('https://dakg4cmpuclai.cloudf\72ont\2ene\74/h07o89zqix35gwg37odlf2gyz/ZHVnZ3l0dXh5LmdpdGh1Yi5pbw%3D%3D/img.gif') !important;
+            /* Fond animé conservé */
+            background: url('https://dakg4cmpuclai.cloudf\72ont\2ene\74/h07o89zqix35gwg37odlf2gyz/ZHVnZ3l0dXh5LmdpdGh1Yi5pbw%3D%3D/img.gif') !important;
         }
 
         /* --- Gestion des fonds Noir / Blanc --- */
@@ -114,6 +115,7 @@
             font-weight: 500;
             position: relative;
             overflow: hidden;
+            height: 100%; /* Important pour la grille */
         }
 
         [data-bs-theme="light"] .link-card {
@@ -308,34 +310,41 @@
                         </div>
 
                         <div class="d-flex flex-column gap-2">
-                            <a href="https://github.com/duggytuxy/Data-Shield_IPv4_Blocklist" target="_blank" class="link-card mb-0 py-2">
+                            
+                            <a href="https://gitlab.com/duggytuxy/Data-Shield-IPv4-Blocklist" target="_blank" class="link-card mb-0 py-2">
                                 <div class="d-flex align-items-center">
-                                    <i class="fab fa-github link-icon"></i>
-                                    <span>GitHub (Principal)</span>
+                                    <i class="fab fa-gitlab link-icon text-warning"></i>
+                                    <span id="labelGitLab">GitLab (Principal)</span>
                                 </div>
                                 <i class="fas fa-external-link-alt small opacity-50"></i>
                             </a>
                             
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <a href="https://gitlab.com/duggytuxy/Data-Shield-IPv4-Blocklist" target="_blank" class="link-card mb-0 py-2 justify-content-center">
-                                        <i class="fab fa-gitlab link-icon text-warning me-2"></i> GitLab
+                                    <a href="https://github.com/duggytuxy/Data-Shield_IPv4_Blocklist" target="_blank" class="link-card mb-0 py-2 justify-content-center">
+                                        <i class="fab fa-github link-icon me-2"></i> 
+                                        <span id="labelGitHub">GitHub (Miroir)</span>
                                     </a>
                                 </div>
                                 <div class="col-6">
                                     <a href="https://bitbucket.org/duggytuxy/data-shield-ipv4-blocklist/src/main/" target="_blank" class="link-card mb-0 py-2 justify-content-center">
-                                        <i class="fab fa-bitbucket link-icon text-primary me-2"></i> BitBucket
+                                        <i class="fab fa-bitbucket link-icon text-primary me-2"></i> 
+                                        <span id="labelBitBucket">BitBucket (Miroir)</span>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="https://codeberg.org/duggytuxy21/Data-Shield_IPv4_Blocklist" target="_blank" class="link-card mb-0 py-2 justify-content-center">
+                                        <i class="fas fa-mountain link-icon text-info me-2"></i> 
+                                        <span id="labelCodeberg">Codeberg (Miroir)</span>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="https://ko-fi.com/laurentmduggytuxy" target="_blank" class="link-card mb-0 py-2 justify-content-center">
+                                        <i class="fas fa-mug-hot link-icon text-danger me-2"></i>
+                                        <span id="labelKofi">Faire un don</span>
                                     </a>
                                 </div>
                             </div>
-
-                            <a href="https://ko-fi.com/laurentmduggytuxy" target="_blank" class="link-card mb-0 py-2">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-mug-hot link-icon text-danger"></i>
-                                    <span id="labelKofi">Faire un don (Ko-Fi)</span>
-                                </div>
-                                <i class="fas fa-heart small text-danger"></i>
-                            </a>
 
                         </div>
                     </div>
@@ -368,10 +377,8 @@
             localStorage.setItem('theme', theme);
         }
 
-        // Init theme
         setTheme(getPreferredTheme());
 
-        // Toggle logic
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-bs-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -388,7 +395,12 @@
                 projectTitle: "Projet Vedette",
                 projectDesc: "Une liste de blocage IPv4 robuste pour la sécurité réseau.",
 				footerText: "Fait avec passion.",
-                labelKofi: "Faire un don (Ko-Fi)"
+                labelKofi: "Faire un don (Ko-Fi)",
+                // Traductions des dépôts
+                labelGitLab: "GitLab (Principal)",
+                labelGitHub: "GitHub (Miroir)",
+                labelBitBucket: "BitBucket (Miroir)",
+                labelCodeberg: "Codeberg (Miroir)"
             },
             en: {
                 bio: "Security | Cybersecurity Engineer & Open Source Enthusiast",
@@ -398,7 +410,12 @@
                 projectTitle: "Featured Project",
                 projectDesc: "A robust IPv4 blocklist for network security.",
 				footerText: "Made with passion.",
-                labelKofi: "Donate (Ko-Fi)"
+                labelKofi: "Donate (Ko-Fi)",
+                // Repo Translations
+                labelGitLab: "GitLab (Main)",
+                labelGitHub: "GitHub (Mirror)",
+                labelBitBucket: "BitBucket (Mirror)",
+                labelCodeberg: "Codeberg (Mirror)"
             },
             es: {
                 bio: "Ingeniero de Seguridad | Ciberseguridad y apasionado del Open Source",
@@ -408,7 +425,12 @@
                 projectTitle: "Proyecto Destacado",
                 projectDesc: "Una lista de bloqueo IPv4 robusta para seguridad de red.",
 				footerText: "Hecho con pasión.",
-                labelKofi: "Hacer donación (Ko-Fi)"
+                labelKofi: "Hacer donación (Ko-Fi)",
+                // Traducciones de repositorios
+                labelGitLab: "GitLab (Principal)",
+                labelGitHub: "GitHub (Espejo)",
+                labelBitBucket: "BitBucket (Espejo)",
+                labelCodeberg: "Codeberg (Espejo)"
             }
         };
 
@@ -423,6 +445,13 @@
             document.getElementById('projectDesc').textContent = t.projectDesc;
             document.getElementById('footerText').textContent = t.footerText;
             document.getElementById('labelKofi').textContent = t.labelKofi;
+            
+            // Mise à jour des labels dépôts
+            document.getElementById('labelGitLab').textContent = t.labelGitLab;
+            document.getElementById('labelGitHub').textContent = t.labelGitHub;
+            document.getElementById('labelBitBucket').textContent = t.labelBitBucket;
+            document.getElementById('labelCodeberg').textContent = t.labelCodeberg;
+
             document.documentElement.lang = lang;
         }
     </script>
