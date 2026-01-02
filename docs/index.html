@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" data-bs-theme="auto">
+<html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,74 +10,63 @@
 
     <title>Laurent Minne aka Duggy Tuxy</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 
     <style>
-        /* --- Police personnalisée --- */
+        /* --- Police JetBrains Mono --- */
         @font-face {
-            font-family: 'Google Sans Flex';
-            src: local('Google Sans Flex'), local('Product Sans'), local('Google Sans'), url('https://fonts.gstatic.com/s/googlesans/v14/4UaGrENHsxJlGDuGo1OIlL3Owp5eKQtG.woff2') format('woff2');
+            font-family: 'JetBrains Mono';
+            src: url('JetBrainsMono-Regular.woff2') format('woff2');
             font-weight: 400;
-            font-display: swap;
+            font-style: normal;
         }
 
         :root {
-            /* Variables pour le style des cartes */
-            --glass-bg-light: rgba(245, 245, 245, 0.8);
-            --glass-border-light: rgba(0, 0, 0, 0.05);
-            --glass-bg-dark: rgba(20, 20, 20, 0.8);
-            --glass-border-dark: rgba(255, 255, 255, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --text-main: #2c3e50;
+            --accent-color: #3e8ed0; /* Bulma info blue */
+        }
+
+        [data-theme="dark"] {
+            --glass-bg: rgba(10, 10, 10, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ecf0f1;
+            --accent-color: #3298dc;
         }
 
         body {
-            font-family: 'Google Sans Flex', 'Product Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'JetBrains Mono', monospace;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: url('https://dakg4cmpuclai.cloudf\72ont\2ene\74/h07o89zqix35gwg37odlf2gyz/ZHVnZ3l0dXh5LmdpdGh1Yi5pbw%3D%3D/img.gif') no-repeat center center fixed !important;
+            background-size: cover !important;
             transition: background-color 0.3s ease, color 0.3s ease;
-            /* Fond animé conservé */
-            background: url('https://dakg4cmpuclai.cloudf\72ont\2ene\74/h07o89zqix35gwg37odlf2gyz/ZHVnZ3l0dXh5LmdpdGh1Yi5pbw%3D%3D/img.gif') !important;
         }
 
-        /* --- Gestion des fonds Noir / Blanc --- */
-        [data-bs-theme="light"] body {
-            background-color: #ffffff;
-            color: #212529;
+        /* --- Navbar Fluide --- */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: var(--glass-bg);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        [data-bs-theme="dark"] body {
-            background-color: #000000;
-            color: #f8f9fa;
-        }
-
-        /* --- Glassmorphism Container --- */
-        .glass-container {
-            border-radius: 20px;
-            padding: 2rem;
-            margin-top: 5.25rem;
-            margin-bottom: 5.25rem;
-            width: 100%;
-            max-width: 680px;
-            transition: all 0.3s ease;
+        /* --- Conteneur Principal sans ombre --- */
+        .glass-box {
+            background-color: var(--glass-bg);
+            border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-        }
-
-        [data-bs-theme="light"] .glass-container {
-            background: var(--glass-bg-light);
-            border: 1px solid var(--glass-border-light);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            color: #333;
-        }
-
-        [data-bs-theme="dark"] .glass-container {
-            background: var(--glass-bg-dark);
-            border: 1px solid var(--glass-border-dark);
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.05);
-            color: #fff;
+            border-radius: 6px; /* Bordures plus nettes pour aller avec JetBrains */
+            padding: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            /* Suppression explicite des ombres */
+            box-shadow: none !important; 
         }
 
         /* --- Avatar --- */
@@ -87,9 +76,8 @@
             border-radius: 50%;
             padding: 4px;
             margin: 0 auto 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 2px solid var(--glass-border);
             background: transparent;
-            border: 2px solid rgba(128, 128, 128, 0.2);
         }
         
         .avatar-img {
@@ -101,269 +89,213 @@
             background-size: cover;
         }
 
-        /* --- Boutons Links --- */
-        .link-card {
+        /* --- Boutons Links (Style Linktree) --- */
+        .button.is-link-card {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            height: auto;
             padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s;
-            border: 1px solid transparent;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-            height: 100%; /* Important pour la grille */
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--glass-border);
+            background-color: transparent;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            box-shadow: none !important;
+            white-space: normal; /* Permet le retour à la ligne si besoin */
+            text-align: left;
         }
 
-        [data-bs-theme="light"] .link-card {
-            background: #ffffff;
-            color: #212529;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.05);
+        .button.is-link-card:hover {
+            border-color: var(--accent-color);
+            background-color: rgba(62, 142, 208, 0.1);
+            transform: translateX(2px); /* Petit mouvement fluide au lieu de l'ombre */
+        }
+
+        .icon-text-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Helpers */
+        hr {
+            background-color: var(--glass-border);
+            height: 1px;
         }
         
-        [data-bs-theme="light"] .link-card:hover {
-            background: #f8f9fa;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-color: rgba(0,0,0,0.1);
+        .footer {
+            background-color: transparent;
+            padding: 2rem 1.5rem;
         }
 
-        [data-bs-theme="dark"] .link-card {
-            background: #1a1a1a;
-            color: #f8f9fa;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        [data-bs-theme="dark"] .link-card:hover {
-            background: #2a2a2a;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            border-color: rgba(255,255,255,0.3);
-        }
-
-        .link-icon {
-            font-size: 1.5rem;
-            width: 30px;
-            text-align: center;
-            margin-right: 15px;
-        }
-
-        /* Badge Styles */
-        .badge-custom {
-            font-size: 0.75rem;
-            padding: 0.35em 0.65em;
-            border-radius: 50rem;
-        }
-
-        /* Navbar flottante pour les contrôles */
-        .top-controls {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-control {
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        /* Style boutons contrôles selon thème */
-        [data-bs-theme="light"] .btn-control {
-            background: rgba(0,0,0,0.05);
-            color: #333;
-        }
-        [data-bs-theme="light"] .btn-control:hover {
-            background: rgba(0,0,0,0.1);
-        }
-
-        [data-bs-theme="dark"] .btn-control {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-        }
-        [data-bs-theme="dark"] .btn-control:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        /* Animations d'entrée */
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
+        /* Animation simple */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
             opacity: 0;
-            transform: translateY(20px);
         }
+        @keyframes fadeIn { to { opacity: 1; } }
 
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
     </style>
 </head>
 <body>
 
-    <div class="top-controls">
-        <button class="btn btn-control" id="themeToggle" title="Changer le thème">
-            <i class="fas fa-adjust"></i>
-        </button>
-        <div class="dropdown">
-            <button class="btn btn-control dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-globe"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow">
-                <li><button class="dropdown-item" onclick="setLanguage('fr')">🇫🇷 Français</button></li>
-                <li><button class="dropdown-item" onclick="setLanguage('en')">🇬🇧 English</button></li>
-                <li><button class="dropdown-item" onclick="setLanguage('es')">🇲🇽 Español</button></li>
-            </ul>
-        </div>
-    </div>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            </div>
 
-    <main class="container d-flex justify-content-center">
-        <div class="glass-container fade-in-up">
-            
-            <header class="text-center mb-4">
-                <div class="avatar-frame">
-                    <div class="avatar-img"></div>
-                </div>
-                
-                <h1 class="h2 fw-bold mb-1">Laurent Minne</h1>
-                <p class="text-muted small mb-2">aka <span class="fw-bold">Duggy Tuxy</span></p>
-                <p id="bioText" class="mb-3 lead fs-6">
-                    Ingénieur Sécurité | Cybersécurité & Passionné d'Open Source
-                </p>
-            </header>
-
-            <hr class="my-4 opacity-25">
-
-            <section>
-                <h2 id="socialTitle" class="h6 text-uppercase text-secondary fw-bold mb-3 ls-1 text-center">Mes Réseaux & CV</h2>
-
-                <a href="https://duggytuxy.github.io" target="_blank" class="link-card fade-in-up delay-1">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-laptop-code link-icon text-primary"></i>
-                        <span id="labelWeb">Site Web Personnel</span>
-                    </div>
-                    <i class="fas fa-chevron-right small opacity-50"></i>
-                </a>
-
-                <a href="https://www.linkedin.com/in/laurent-minne/" target="_blank" class="link-card fade-in-up delay-2">
-                    <div class="d-flex align-items-center">
-                        <i class="fab fa-linkedin link-icon text-info"></i>
-                        <span>LinkedIn</span>
-                    </div>
-                    <i class="fas fa-chevron-right small opacity-50"></i>
-                </a>
-
-                <a href="https://bsky.app/profile/duggytuxy.bsky.social" target="_blank" class="link-card fade-in-up delay-3">
-                    <div class="d-flex align-items-center">
-                        <i class="fa-brands fa-bluesky link-icon text-primary"></i>
-                        <span>BlueSky</span>
-                    </div>
-                    <i class="fas fa-chevron-right small opacity-50"></i>
-                </a>
-
-                <a href="https://tryhackme.com/p/duggytuxy" target="_blank" class="link-card fade-in-up delay-3">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-user-secret link-icon text-danger"></i>
-                        <span>TryHackMe</span>
-                    </div>
-                    <i class="fas fa-chevron-right small opacity-50"></i>
-                </a>
-
-                <a href="https://duggytuxy.github.io/cv/cv.html" class="link-card fade-in-up delay-3">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-briefcase link-icon text-danger"></i>
-                        <span id="labelCV">Mon CV</span>
-                    </div>
-                    <i class="fas fa-chevron-right small opacity-50"></i>
-                </a>
-            </section>
-
-            <hr class="my-4 opacity-25">
-
-            <section>
-                <h3 id="projectTitle" class="h6 text-uppercase text-secondary fw-bold mb-3 ls-1 text-center">Projet Vedette</h3>
-                
-                <div class="card bg-transparent border-0 fade-in-up delay-4">
-                    <div class="card-body p-0">
-                        <div class="text-center mb-3">
-                            <span class="badge bg-success mb-2">Open Source</span>
-                            <h4 class="h5 fw-bold">Data-Shield IPv4 Blocklist</h4>
-                            <p id="projectDesc" class="small opacity-75">Une liste de blocage IPv4 robuste pour la sécurité réseau.</p>
-                        </div>
-
-                        <div class="d-flex flex-column gap-2">
-                            
-                            <a href="https://gitlab.com/duggytuxy/Data-Shield-IPv4-Blocklist" target="_blank" class="link-card mb-0 py-2">
-                                <div class="d-flex align-items-center">
-                                    <i class="fab fa-gitlab link-icon text-warning"></i>
-                                    <span id="labelGitLab">GitLab (Principal)</span>
-                                </div>
-                                <i class="fas fa-external-link-alt small opacity-50"></i>
-                            </a>
-                            
-                            <div class="row g-2">
-                                <div class="col-6">
-                                    <a href="https://github.com/duggytuxy/Data-Shield_IPv4_Blocklist" target="_blank" class="link-card mb-0 py-2 justify-content-center">
-                                        <i class="fab fa-github link-icon me-2"></i> 
-                                        <span id="labelGitHub">GitHub (Miroir)</span>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="https://bitbucket.org/duggytuxy/data-shield-ipv4-blocklist/src/main/" target="_blank" class="link-card mb-0 py-2 justify-content-center">
-                                        <i class="fab fa-bitbucket link-icon text-primary me-2"></i> 
-                                        <span id="labelBitBucket">BitBucket (Miroir)</span>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="https://codeberg.org/duggytuxy21/Data-Shield_IPv4_Blocklist" target="_blank" class="link-card mb-0 py-2 justify-content-center">
-                                        <i class="fas fa-mountain link-icon text-info me-2"></i> 
-                                        <span id="labelCodeberg">Codeberg (Miroir)</span>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="https://ko-fi.com/laurentmduggytuxy" target="_blank" class="link-card mb-0 py-2 justify-content-center">
-                                        <i class="fas fa-mug-hot link-icon text-danger me-2"></i>
-                                        <span id="labelKofi">Faire un don</span>
-                                    </a>
+        <div class="navbar-menu is-active" style="background: transparent; box-shadow: none;">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <button class="button is-ghost" id="themeToggle" title="Changer le thème">
+                            <span class="icon"><i class="fas fa-adjust"></i></span>
+                        </button>
+                        
+                        <div class="dropdown is-hoverable is-right">
+                            <div class="dropdown-trigger">
+                                <button class="button is-ghost" aria-haspopup="true" aria-controls="dropdown-menu">
+                                    <span class="icon"><i class="fas fa-globe"></i></span>
+                                    <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                <div class="dropdown-content" style="background-color: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: none;">
+                                    <a href="#" class="dropdown-item" onclick="setLanguage('fr')">🇫🇷 Français</a>
+                                    <a href="#" class="dropdown-item" onclick="setLanguage('en')">🇬🇧 English</a>
+                                    <a href="#" class="dropdown-item" onclick="setLanguage('es')">🇲🇽 Español</a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <footer class="text-center mt-5 opacity-50 small">
-                <p>&copy; <span id="year"></span> Laurent Minne. <span id="footerText">Fait avec passion.</span></p>
-            </footer>
+            </div>
         </div>
-    </main>
+    </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="glass-box fade-in">
+                
+                <div class="has-text-centered mb-5">
+                    <div class="avatar-frame">
+                        <div class="avatar-img"></div>
+                    </div>
+                    <h1 class="title is-4 is-uppercase has-text-weight-bold mb-2" style="color: var(--text-main);">Laurent Minne</h1>
+                    <p class="subtitle is-6 mb-2">aka <span class="has-text-weight-bold">Duggy Tuxy</span></p>
+                    <p id="bioText" class="is-size-6">
+                        Ingénieur Sécurité | Cybersécurité & Passionné d'Open Source
+                    </p>
+                </div>
+
+                <hr>
+
+                <div class="mb-6">
+                    <h2 id="socialTitle" class="title is-6 is-uppercase has-text-grey has-text-centered mb-4">Mes Réseaux & CV</h2>
+
+                    <a href="https://duggytuxy.github.io" target="_blank" class="button is-fullwidth is-large is-link-card">
+                        <div class="icon-text-wrapper">
+                            <span class="icon has-text-link"><i class="fas fa-laptop-code"></i></span>
+                            <span id="labelWeb">Site Web Personnel</span>
+                        </div>
+                        <span class="icon is-small has-text-grey-light"><i class="fas fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/laurent-minne/" target="_blank" class="button is-fullwidth is-large is-link-card">
+                        <div class="icon-text-wrapper">
+                            <span class="icon has-text-info"><i class="fab fa-linkedin"></i></span>
+                            <span>LinkedIn</span>
+                        </div>
+                        <span class="icon is-small has-text-grey-light"><i class="fas fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="https://bsky.app/profile/duggytuxy.bsky.social" target="_blank" class="button is-fullwidth is-large is-link-card">
+                        <div class="icon-text-wrapper">
+                            <span class="icon has-text-link"><i class="fa-brands fa-bluesky"></i></span>
+                            <span>BlueSky</span>
+                        </div>
+                        <span class="icon is-small has-text-grey-light"><i class="fas fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="https://tryhackme.com/p/duggytuxy" target="_blank" class="button is-fullwidth is-large is-link-card">
+                        <div class="icon-text-wrapper">
+                            <span class="icon has-text-danger"><i class="fas fa-user-secret"></i></span>
+                            <span>TryHackMe</span>
+                        </div>
+                        <span class="icon is-small has-text-grey-light"><i class="fas fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="https://duggytuxy.github.io/cv/cv.html" class="button is-fullwidth is-large is-link-card">
+                        <div class="icon-text-wrapper">
+                            <span class="icon has-text-danger"><i class="fas fa-briefcase"></i></span>
+                            <span id="labelCV">Mon CV</span>
+                        </div>
+                        <span class="icon is-small has-text-grey-light"><i class="fas fa-chevron-right"></i></span>
+                    </a>
+                </div>
+
+                <hr>
+
+                <div>
+                    <h3 id="projectTitle" class="title is-6 is-uppercase has-text-grey has-text-centered mb-4">Projet Vedette</h3>
+                    
+                    <div class="box" style="background: transparent; border: none; padding: 0; box-shadow: none;">
+                        <div class="has-text-centered mb-4">
+                            <span class="tag is-success is-light mb-2">Open Source</span>
+                            <h4 class="title is-5 has-text-weight-bold" style="color: var(--text-main);">Data-Shield IPv4 Blocklist</h4>
+                            <p id="projectDesc" class="is-size-7">Une liste de blocage IPv4 robuste pour la sécurité réseau.</p>
+                        </div>
+
+                        <a href="https://gitlab.com/duggytuxy/Data-Shield-IPv4-Blocklist" target="_blank" class="button is-fullwidth is-large is-link-card mb-2">
+                            <div class="icon-text-wrapper">
+                                <span class="icon has-text-warning"><i class="fab fa-gitlab"></i></span>
+                                <span id="labelGitLab">GitLab (Principal)</span>
+                            </div>
+                            <span class="icon is-small has-text-grey-light"><i class="fas fa-external-link-alt"></i></span>
+                        </a>
+
+                        <div class="columns is-mobile is-multiline is-variable is-2">
+                            <div class="column is-6">
+                                <a href="https://github.com/duggytuxy/Data-Shield_IPv4_Blocklist" target="_blank" class="button is-fullwidth is-link-card is-justify-content-center">
+                                    <span class="icon is-small mr-2"><i class="fab fa-github"></i></span>
+                                    <span id="labelGitHub" class="is-size-7">GitHub (Miroir)</span>
+                                </a>
+                            </div>
+                            <div class="column is-6">
+                                <a href="https://bitbucket.org/duggytuxy/data-shield-ipv4-blocklist/src/main/" target="_blank" class="button is-fullwidth is-link-card is-justify-content-center">
+                                    <span class="icon has-text-info is-small mr-2"><i class="fab fa-bitbucket"></i></span>
+                                    <span id="labelBitBucket" class="is-size-7">BitBucket (Miroir)</span>
+                                </a>
+                            </div>
+                            <div class="column is-6">
+                                <a href="https://codeberg.org/duggytuxy21/Data-Shield_IPv4_Blocklist" target="_blank" class="button is-fullwidth is-link-card is-justify-content-center">
+                                    <span class="icon has-text-info is-small mr-2"><i class="fas fa-mountain"></i></span>
+                                    <span id="labelCodeberg" class="is-size-7">Codeberg (Miroir)</span>
+                                </a>
+                            </div>
+                            <div class="column is-6">
+                                <a href="https://ko-fi.com/laurentmduggytuxy" target="_blank" class="button is-fullwidth is-link-card is-justify-content-center">
+                                    <span class="icon has-text-danger is-small mr-2"><i class="fas fa-mug-hot"></i></span>
+                                    <span id="labelKofi" class="is-size-7">Faire un don</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="footer has-text-centered is-size-7 has-text-grey">
+                    <p>&copy; <span id="year"></span> Laurent Minne. <span id="footerText">Fait avec passion.</span></p>
+                </footer>
+
+            </div>
+        </div>
+    </section>
 
     <script>
         // --- 1. Gestion de la date ---
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // --- 2. Gestion du Thème (Dark/Light/Auto) ---
+        // --- 2. Gestion du Thème (Dark/Light/Auto) avec Bulma ---
         const themeToggleBtn = document.getElementById('themeToggle');
         
         function getPreferredTheme() {
@@ -373,14 +305,16 @@
         }
 
         function setTheme(theme) {
-            document.documentElement.setAttribute('data-bs-theme', theme);
+            document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
         }
 
+        // Init theme
         setTheme(getPreferredTheme());
 
+        // Toggle logic
         themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             setTheme(newTheme);
         });
@@ -394,9 +328,8 @@
                 labelCV: "Mon CV",
                 projectTitle: "Projet Vedette",
                 projectDesc: "Une liste de blocage IPv4 robuste pour la sécurité réseau.",
-				footerText: "Fait avec passion.",
-                labelKofi: "Faire un don (Ko-Fi)",
-                // Traductions des dépôts
+                footerText: "Fait avec passion.",
+                labelKofi: "Faire un don",
                 labelGitLab: "GitLab (Principal)",
                 labelGitHub: "GitHub (Miroir)",
                 labelBitBucket: "BitBucket (Miroir)",
@@ -409,9 +342,8 @@
                 labelCV: "My Resume",
                 projectTitle: "Featured Project",
                 projectDesc: "A robust IPv4 blocklist for network security.",
-				footerText: "Made with passion.",
-                labelKofi: "Donate (Ko-Fi)",
-                // Repo Translations
+                footerText: "Made with passion.",
+                labelKofi: "Donate",
                 labelGitLab: "GitLab (Main)",
                 labelGitHub: "GitHub (Mirror)",
                 labelBitBucket: "BitBucket (Mirror)",
@@ -424,9 +356,8 @@
                 labelCV: "Mi Currículum",
                 projectTitle: "Proyecto Destacado",
                 projectDesc: "Una lista de bloqueo IPv4 robusta para seguridad de red.",
-				footerText: "Hecho con pasión.",
-                labelKofi: "Hacer donación (Ko-Fi)",
-                // Traducciones de repositorios
+                footerText: "Hecho con pasión.",
+                labelKofi: "Hacer donación",
                 labelGitLab: "GitLab (Principal)",
                 labelGitHub: "GitHub (Espejo)",
                 labelBitBucket: "BitBucket (Espejo)",
@@ -446,7 +377,6 @@
             document.getElementById('footerText').textContent = t.footerText;
             document.getElementById('labelKofi').textContent = t.labelKofi;
             
-            // Mise à jour des labels dépôts
             document.getElementById('labelGitLab').textContent = t.labelGitLab;
             document.getElementById('labelGitHub').textContent = t.labelGitHub;
             document.getElementById('labelBitBucket').textContent = t.labelBitBucket;
