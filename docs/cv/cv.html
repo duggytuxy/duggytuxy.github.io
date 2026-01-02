@@ -16,7 +16,7 @@
     <style>
         @font-face {
             font-family: 'JetBrains Mono';
-            src: url('../JetBrainsMono-Regular.woff2') format('woff2'); /* Attention au chemin relatif */
+            src: url('../JetBrainsMono-Regular.woff2') format('woff2');
             font-weight: 400;
             font-style: normal;
         }
@@ -24,7 +24,8 @@
         :root {
             --glass-bg: rgba(255, 255, 255, 0.95);
             --glass-border: rgba(0, 0, 0, 0.1);
-            --text-main: #2c3e50;
+            --text-main: #000000;
+            --icon-color: #000000;
             --primary-color: #3e8ed0;
             --timeline-line: rgba(0, 0, 0, 0.1);
         }
@@ -33,6 +34,7 @@
             --glass-bg: rgba(10, 10, 10, 0.95);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-main: #ecf0f1;
+            --icon-color: #ffffff;
             --primary-color: #3298dc;
             --timeline-line: rgba(255, 255, 255, 0.1);
         }
@@ -53,6 +55,18 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            min-height: 3.5rem;
+        }
+
+        .navbar-icon-btn {
+            color: var(--icon-color) !important;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Conteneur CV sans ombre */
@@ -77,7 +91,7 @@
             margin-right: 1.5rem;
         }
 
-        /* Timeline / Expérience (Custom CSS car pas natif Bulma) */
+        /* Timeline / Expérience */
         .timeline-item {
             position: relative;
             padding-left: 2rem;
@@ -94,7 +108,7 @@
             height: 16px;
             border-radius: 50%;
             background: var(--primary-color);
-            border: 3px solid var(--glass-bg); /* Donne l'effet de coupure */
+            border: 3px solid var(--glass-bg);
         }
 
         /* Skill Tags */
@@ -122,6 +136,12 @@
         .has-text-justified {
             text-align: justify;
         }
+        
+        /* Footer Fix */
+        .footer {
+            background-color: transparent !important;
+            --bulma-footer-background-color: transparent;
+        }
 
         .fade-in {
             animation: fadeIn 0.8s ease-out forwards;
@@ -133,35 +153,32 @@
 <body>
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="../">
+        <div class="navbar-brand" style="width: 100%; display: flex; align-items: center;">
+            
+            <a class="navbar-item" href="../" style="color: var(--text-main);">
                 <span class="icon mr-2"><i class="fas fa-arrow-left"></i></span>
                 <span class="has-text-weight-bold" id="btnBackText">Retour</span>
             </a>
-        </div>
 
-        <div class="navbar-menu is-active" style="background: transparent; box-shadow: none;">
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <button class="button is-ghost" id="themeToggle" title="Changer le thème">
-                            <span class="icon"><i class="fas fa-adjust"></i></span>
+            <div style="flex-grow: 1;"></div>
+
+            <div class="navbar-item" style="display: flex; gap: 0.5rem; padding-right: 1rem;">
+                <button class="navbar-icon-btn" id="themeToggle" title="Changer le thème">
+                    <span class="icon is-medium"><i class="fas fa-adjust fa-lg"></i></span>
+                </button>
+                
+                <div class="dropdown is-right" id="langDropdown">
+                    <div class="dropdown-trigger">
+                        <button class="navbar-icon-btn" aria-haspopup="true" aria-controls="dropdown-menu" onclick="toggleDropdown(event)">
+                            <span class="icon is-medium"><i class="fas fa-globe fa-lg"></i></span>
+                            <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
                         </button>
-                        
-                        <div class="dropdown is-hoverable is-right">
-                            <div class="dropdown-trigger">
-                                <button class="button is-ghost" aria-haspopup="true" aria-controls="dropdown-menu">
-                                    <span class="icon"><i class="fas fa-globe"></i></span>
-                                    <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
-                                </button>
-                            </div>
-                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                                <div class="dropdown-content" style="background-color: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: none;">
-                                    <a href="#" class="dropdown-item" onclick="setLanguage('fr')">🇫🇷 Français</a>
-                                    <a href="#" class="dropdown-item" onclick="setLanguage('en')">🇬🇧 English</a>
-                                    <a href="#" class="dropdown-item" onclick="setLanguage('es')">🇲🇽 Español</a>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content" style="background-color: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+                            <a href="#" class="dropdown-item" onclick="setLanguage('fr')">🇫🇷 Français</a>
+                            <a href="#" class="dropdown-item" onclick="setLanguage('en')">🇬🇧 English</a>
+                            <a href="#" class="dropdown-item" onclick="setLanguage('es')">🇲🇽 Español</a>
                         </div>
                     </div>
                 </div>
@@ -170,14 +187,15 @@
     </nav>
 
     <section class="section">
-        <div class="container is-max-widescreen"> <div class="glass-box fade-in">
+        <div class="container is-max-widescreen">
+            <div class="glass-box fade-in">
                 
                 <div class="is-flex is-align-items-center mb-6 is-flex-wrap-wrap">
                     <img src="../duggytuxy_laurent_minne.png" alt="Laurent Minne" class="avatar-small">
                     <div>
                         <h1 class="title is-3 has-text-weight-bold mb-1" style="color: var(--text-main);">Laurent Minne</h1>
                         <p class="subtitle is-5 mb-2 has-text-info has-text-weight-medium" id="headerRole">Security Engineer & CISO</p>
-                        <div class="is-size-7 opacity-75 is-flex" style="gap: 15px; flex-wrap: wrap;">
+                        <div class="is-size-7 opacity-75 is-flex" style="gap: 15px; flex-wrap: wrap; color: var(--text-main);">
                             <span><i class="fas fa-map-marker-alt mr-1"></i> <span id="headerLoc">Mons, Belgique</span></span>
                             <span><i class="fas fa-envelope mr-1"></i> <span id="headerEmail">A la demande</span></span>
                             <a href="https://www.linkedin.com/in/laurent-minne" target="_blank" style="color: inherit;">
@@ -202,8 +220,8 @@
                             
                             <div class="timeline-item">
                                 <h3 class="title is-5 mb-1" id="acensiTitle" style="color: var(--text-main);">Security Engineer & CISO</h3>
-                                <span class="is-block is-size-7 mb-2 opacity-75"><i class="far fa-building mr-1"></i> ACENSI • <span id="acensiLoc">Paris & Bruxelles</span> • <span id="acensiDate">Juil 2024 - Présent</span></span>
-                                <ul class="is-size-7 opacity-90 pl-3" style="list-style-type: disc;">
+                                <span class="is-block is-size-7 mb-2 opacity-75" style="color: var(--text-main);"><i class="far fa-building mr-1"></i> ACENSI • <span id="acensiLoc">Paris & Bruxelles</span> • <span id="acensiDate">Juil 2024 - Présent</span></span>
+                                <ul class="is-size-7 opacity-90 pl-3" style="list-style-type: disc; color: var(--text-main);">
                                     <li id="acensiDesc1">Feuille de route Sécurité de la SSI 2024-2025-2026.</li>
                                     <li id="acensiDesc2">Gestion des habilitations de sécurité (Security Clearance "Secret").</li>
                                     <li id="acensiDesc3">Ingénieur Senior en Sécurité de l'Information : Réponse aux incidents, Scénarios d'attaque, Collaboration SOC.</li>
@@ -212,8 +230,8 @@
 
                             <div class="timeline-item">
                                 <h3 class="title is-5 mb-1" id="thalesTitle" style="color: var(--text-main);">IVVQ Engineer</h3>
-                                <span class="is-block is-size-7 mb-2 opacity-75"><i class="far fa-building mr-1"></i> Thales • <span id="thalesLoc">Bruxelles</span> • <span id="thalesDate">Jan 2024 - Juil 2024</span></span>
-                                <ul class="is-size-7 opacity-90 pl-3" style="list-style-type: disc;">
+                                <span class="is-block is-size-7 mb-2 opacity-75" style="color: var(--text-main);"><i class="far fa-building mr-1"></i> Thales • <span id="thalesLoc">Bruxelles</span> • <span id="thalesDate">Jan 2024 - Juil 2024</span></span>
+                                <ul class="is-size-7 opacity-90 pl-3" style="list-style-type: disc; color: var(--text-main);">
                                     <li id="thalesDesc1">Ingénieur Intégration, Vérification, Validation & Qualification.</li>
                                     <li id="thalesDesc2">Évaluation des risques pour divers projets.</li>
                                     <li id="thalesDesc3">Tests, vérifications et validations (EBIOS RM, ISO27001, NIS2).</li>
@@ -222,8 +240,8 @@
 
                             <div class="timeline-item">
                                 <h3 class="title is-5 mb-1" id="chrTitle" style="color: var(--text-main);">Information Systems Security Manager</h3>
-                                <span class="is-block is-size-7 mb-2 opacity-75"><i class="far fa-building mr-1"></i> CHR Haute Senne • Soignies • <span id="chrDate">Oct 2022 - Jan 2024</span></span>
-                                <ul class="is-size-7 opacity-90 pl-3" style="list-style-type: disc;">
+                                <span class="is-block is-size-7 mb-2 opacity-75" style="color: var(--text-main);"><i class="far fa-building mr-1"></i> CHR Haute Senne • Soignies • <span id="chrDate">Oct 2022 - Jan 2024</span></span>
+                                <ul class="is-size-7 opacity-90 pl-3" style="list-style-type: disc; color: var(--text-main);">
                                     <li id="chrDesc1">Assistant CISO et analyste de risques.</li>
                                     <li id="chrDesc2">Gestion des vulnérabilités et réduction de la surface d'attaque.</li>
                                     <li id="chrDesc3">Implémentation des politiques de sécurité (ISO27001, GDPR).</li>
@@ -233,8 +251,8 @@
 
                             <div class="timeline-item">
                                 <h3 class="title is-5 mb-1" id="beTitle" style="color: var(--text-main);">Security & Cyber Security Engineer</h3>
-                                <span class="is-block is-size-7 mb-2 opacity-75"><i class="far fa-building mr-1"></i> BE Confidential • <span id="beLoc">Bruxelles</span> • <span id="beDate">Nov 2013 - Oct 2022</span></span>
-                                <ul class="is-size-7 opacity-90 pl-3" style="list-style-type: disc;">
+                                <span class="is-block is-size-7 mb-2 opacity-75" style="color: var(--text-main);"><i class="far fa-building mr-1"></i> BE Confidential • <span id="beLoc">Bruxelles</span> • <span id="beDate">Nov 2013 - Oct 2022</span></span>
+                                <ul class="is-size-7 opacity-90 pl-3" style="list-style-type: disc; color: var(--text-main);">
                                     <li id="beDesc1">Analyse de risques et gestion des vulnérabilités.</li>
                                     <li id="beDesc2">Monitoring réseau et durcissement système (Hardening).</li>
                                     <li id="beDesc3">Sécurité déceptive (VPS et VMs).</li>
@@ -244,11 +262,11 @@
 
                             <div class="timeline-item opacity-75">
                                 <h3 class="title is-6 mb-1" id="engieTitle" style="color: var(--text-main);">Mailing Learning Support & Resilience</h3>
-                                <span class="is-size-7">ENGIE • <span id="engieDate">2004 - 2013 (9 ans)</span></span>
+                                <span class="is-size-7" style="color: var(--text-main);">ENGIE • <span id="engieDate">2004 - 2013 (9 ans)</span></span>
                             </div>
                             <div class="timeline-item opacity-75">
                                 <h3 class="title is-6 mb-1" id="triangleTitle" style="color: var(--text-main);">Technicien Installations Électriques</h3>
-                                <span class="is-size-7">Triangle Interim • <span id="triangleDate">1994 - 2003 (9 ans)</span></span>
+                                <span class="is-size-7" style="color: var(--text-main);">Triangle Interim • <span id="triangleDate">1994 - 2003 (9 ans)</span></span>
                             </div>
 
                         </div>
@@ -259,7 +277,7 @@
                         <div class="mb-6">
                             <h2 class="section-title" id="skillsTitle"><i class="fas fa-tools mr-2"></i> Compétences</h2>
                             <div class="mb-4">
-                                <strong class="is-block is-size-7 mb-2 is-uppercase opacity-50" id="skillsCyber">Cybersécurité</strong>
+                                <strong class="is-block is-size-7 mb-2 is-uppercase opacity-50" id="skillsCyber" style="color: var(--text-main);">Cybersécurité</strong>
                                 <span class="tag is-skill mb-1">SOC / Incident Response</span>
                                 <span class="tag is-skill mb-1">ISO27001 / NIS2</span>
                                 <span class="tag is-skill mb-1">EBIOS RM</span>
@@ -267,7 +285,7 @@
                                 <span class="tag is-skill mb-1">Data-Shield Blocklist</span>
                             </div>
                             <div>
-                                <strong class="is-block is-size-7 mb-2 is-uppercase opacity-50" id="skillsTech">Tech & Outils</strong>
+                                <strong class="is-block is-size-7 mb-2 is-uppercase opacity-50" id="skillsTech" style="color: var(--text-main);">Tech & Outils</strong>
                                 <span class="tag is-skill mb-1">Windows / Linux</span>
                                 <span class="tag is-skill mb-1">Wazuh / n8n</span>
                                 <span class="tag is-skill mb-1">FortiOS / PAN-OS</span>
@@ -282,28 +300,28 @@
                             
                             <div class="mb-4">
                                 <div class="has-text-weight-bold" style="color: var(--text-main);">CompTIA SecurityX</div>
-                                <div class="is-size-7 opacity-75">CompTIA • 2024</div>
+                                <div class="is-size-7 opacity-75" style="color: var(--text-main);">CompTIA • 2024</div>
                             </div>
 
                             <div class="mb-4">
                                 <div class="has-text-weight-bold" style="color: var(--text-main);">Ethical Hacking & Pentesting</div>
-                                <div class="is-size-7 opacity-75">Cisco Academy • 2023-2025</div>
+                                <div class="is-size-7 opacity-75" style="color: var(--text-main);">Cisco Academy • 2023-2025</div>
                             </div>
 
                             <div class="mb-4">
                                 <div class="has-text-weight-bold" style="color: var(--text-main);">NSE 5 Network Security</div>
-                                <div class="is-size-7 opacity-75">Fortinet • 2022</div>
+                                <div class="is-size-7 opacity-75" style="color: var(--text-main);">Fortinet • 2022</div>
                             </div>
 
                             <div class="mb-4">
                                 <div class="has-text-weight-bold" id="certAnssi" style="color: var(--text-main);">Certificat Cybersécurité</div>
-                                <div class="is-size-7 opacity-75">ANSSI • 2020</div>
+                                <div class="is-size-7 opacity-75" style="color: var(--text-main);">ANSSI • 2020</div>
                             </div>
                         </div>
 
                         <div>
                             <h2 class="section-title" id="langTitle"><i class="fas fa-language mr-2"></i> Langues</h2>
-                            <ul>
+                            <ul style="color: var(--text-main);">
                                 <li class="mb-2 is-flex is-justify-content-space-between is-align-items-center">
                                     <span id="langFr">Français</span>
                                     <span class="tag is-dark" id="levelFr">Natif</span>
@@ -330,7 +348,6 @@
     </section>
 
     <script>
-        // --- Gestion du Thème (Dark/Light/Auto) avec Bulma ---
         const themeToggleBtn = document.getElementById('themeToggle');
         
         function getPreferredTheme() {
@@ -352,7 +369,15 @@
             setTheme(newTheme);
         });
 
-        // --- Gestion Multilingue (i18n) ---
+        // Toggle dropdown mobile
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            document.getElementById('langDropdown').classList.toggle('is-active');
+        }
+        document.addEventListener('click', () => {
+            document.getElementById('langDropdown').classList.remove('is-active');
+        });
+
         const translations = {
             fr: {
                 btnBackText: "Retour",
@@ -508,7 +533,6 @@
 
         function setLanguage(lang) {
             const t = translations[lang];
-            
             document.getElementById('btnBackText').textContent = t.btnBackText;
             document.getElementById('headerRole').textContent = t.headerRole;
             document.getElementById('headerLoc').textContent = t.headerLoc;
@@ -569,6 +593,7 @@
             document.getElementById('levelEn').textContent = t.levelEn;
 
             document.documentElement.lang = lang;
+            document.getElementById('langDropdown').classList.remove('is-active');
         }
     </script>
 </body>
