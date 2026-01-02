@@ -26,8 +26,8 @@
         :root {
             --glass-bg: rgba(255, 255, 255, 0.9);
             --glass-border: rgba(0, 0, 0, 0.1);
-            --text-main: #000000; /* Noir pur demandé pour le light mode */
-            --icon-color: #000000; /* Icônes en noir */
+            --text-main: #000000;
+            --icon-color: #000000;
             --accent-color: #3e8ed0;
         }
 
@@ -35,7 +35,7 @@
             --glass-bg: rgba(10, 10, 10, 0.9);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-main: #ecf0f1;
-            --icon-color: #ffffff; /* Blanc pour être visible sur fond noir */
+            --icon-color: #ffffff;
             --accent-color: #3298dc;
         }
 
@@ -55,10 +55,9 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            min-height: 3.5rem; /* Hauteur fixe pour éviter les sauts */
+            min-height: 3.5rem;
         }
 
-        /* Styles spécifiques pour les icônes de la navbar */
         .navbar-icon-btn {
             color: var(--icon-color) !important;
             border: none;
@@ -74,7 +73,7 @@
             opacity: 0.7;
         }
 
-        /* --- Conteneur Principal sans ombre --- */
+        /* --- Conteneur Principal --- */
         .glass-box {
             background-color: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -130,6 +129,13 @@
             transform: translateX(2px);
         }
 
+        /* Masquer les flèches/icônes de droite sur tablette et mobile (max-width: 1023px inclut les tablettes en mode portrait/paysage standard) */
+        @media screen and (max-width: 1023px) {
+            .button.is-link-card > .icon:last-child {
+                display: none !important;
+            }
+        }
+
         .icon-text-wrapper {
             display: flex;
             align-items: center;
@@ -143,7 +149,6 @@
         }
         
         .footer {
-            /* Force le transparent pour éviter le gris */
             background-color: transparent !important;
             --bulma-footer-background-color: transparent;
             padding: 2rem 1.5rem;
@@ -335,17 +340,13 @@
         });
 
         // --- 3. Toggle Dropdown (Mobile Fix) ---
-        // Permet d'ouvrir le menu au clic sur mobile
         function toggleDropdown(event) {
             event.stopPropagation();
-            const dropdown = document.getElementById('langDropdown');
-            dropdown.classList.toggle('is-active');
+            document.getElementById('langDropdown').classList.toggle('is-active');
         }
 
-        // Fermer le dropdown si on clique ailleurs
         document.addEventListener('click', () => {
-            const dropdown = document.getElementById('langDropdown');
-            dropdown.classList.remove('is-active');
+            document.getElementById('langDropdown').classList.remove('is-active');
         });
 
         // --- 4. Gestion Multilingue (i18n) ---
@@ -410,7 +411,6 @@
             document.getElementById('labelCodeberg').textContent = t.labelCodeberg;
             document.documentElement.lang = lang;
             
-            // Ferme le dropdown après sélection
             document.getElementById('langDropdown').classList.remove('is-active');
         }
     </script>
