@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Ne pas indexer les fichiers de police
+Disallow: /*.woff2$
+
+# Ne pas indexer la page d'erreur
+Disallow: /404.html
+
+# Indiquer l'emplacement du plan du site
+Sitemap: https://duggytuxy.github.io/sitemap.xml
