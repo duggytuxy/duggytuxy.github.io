@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de Laurent Minne - Articles sur la Cybersécurité et l'Open Source">
+    <meta name="author" content="Laurent Minne">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐧</text></svg>">
+
+    <title>Blog - Laurent Minne</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+    <style>
+        /* --- Police JetBrains Mono --- */
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('JetBrainsMono-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --text-main: #000000;
+            --icon-color: #000000;
+            --accent-color: #3e8ed0;
+            --card-bg: rgba(255, 255, 255, 0.5);
+        }
+
+        [data-theme="dark"] {
+            --glass-bg: rgba(10, 10, 10, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ecf0f1;
+            --icon-color: #ffffff;
+            --accent-color: #3298dc;
+            --card-bg: rgba(30, 30, 30, 0.6);
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            min-height: 100vh;
+            background: url('https://dakg4cmpuclai.cloudf\72ont\2ene\74/h07o89zqix35gwg37odlf2gyz/ZHVnZ3l0dXh5LmdpdGh1Yi5pbw%3D%3D/img.gif') no-repeat center center fixed !important;
+            background-size: cover !important;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- Layout Custom (Marge 2rem) --- */
+        .container-fluid-custom {
+            padding-left: 2rem;
+            padding-right: 2rem;
+            max-width: 100%;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: var(--glass-bg);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            min-height: 3.5rem;
+        }
+
+        .navbar-icon-btn {
+            color: var(--icon-color) !important;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- Sidebar & Cards --- */
+        .glass-panel {
+            background-color: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            height: 100%;
+        }
+
+        .blog-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 6px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .card-image img {
+            object-fit: cover;
+            height: 180px;
+            width: 100%;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .card-content {
+            padding: 1.25rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-meta {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        /* Tags Sidebar */
+        .tag-clickable {
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 0.5rem;
+        }
+        .tag-clickable:hover, .tag-clickable.is-active {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: transparent !important;
+            --bulma-footer-background-color: transparent;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* Pour cacher les articles filtrés */
+        .is-hidden-article {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand" style="width: 100%; display: flex; align-items: center;">
+            <a class="navbar-item" href="index.html" style="color: var(--text-main);">
+                <span class="icon mr-2"><i class="fas fa-arrow-left"></i></span>
+                <span class="has-text-weight-bold" id="btnBackText">Accueil</span>
+            </a>
+            <div style="flex-grow: 1;"></div>
+            <div class="navbar-item" style="display: flex; gap: 0.5rem; padding-right: 1rem;">
+                <button class="navbar-icon-btn" id="themeToggle" title="Changer le thème">
+                    <span class="icon is-medium"><i class="fas fa-adjust fa-lg"></i></span>
+                </button>
+                <div class="dropdown is-right" id="langDropdown">
+                    <div class="dropdown-trigger">
+                        <button class="navbar-icon-btn" aria-haspopup="true" aria-controls="dropdown-menu" onclick="toggleDropdown(event)">
+                            <span class="icon is-medium"><i class="fas fa-globe fa-lg"></i></span>
+                            <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content" style="background-color: var(--glass-bg); border: 1px solid var(--glass-border);">
+                            <a href="#" class="dropdown-item" onclick="setLanguage('fr')">🇫🇷 Français</a>
+                            <a href="#" class="dropdown-item" onclick="setLanguage('en')">🇬🇧 English</a>
+                            <a href="#" class="dropdown-item" onclick="setLanguage('es')">🇲🇽 Español</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section" style="padding-left: 0; padding-right: 0;">
+        <div class="container-fluid-custom fade-in">
+            
+            <div class="columns">
+                
+                <div class="column is-10">
+                    
+                    <h1 class="title is-3 mb-6" style="color: var(--text-main);" id="pageTitle">Derniers Articles</h1>
+
+                    <div class="columns is-multiline mb-4">
+                        <div class="column is-4 article-item" data-tags="linux security">
+                            <div class="blog-card">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=1000&auto=format&fit=crop" alt="Linux Security">
+                                </div>
+                                <div class="card-content">
+                                    <div class="content-meta">
+                                        <i class="far fa-calendar-alt mr-1"></i> 02 Jan 2026 • <i class="far fa-user ml-2 mr-1"></i> Duggy Tuxy
+                                    </div>
+                                    <h3 class="title is-5" style="color: var(--text-main);" id="art1Title">Linux Hardening Guide</h3>
+                                    <p class="is-size-7 mb-3" style="color: var(--text-main); opacity: 0.9;" id="art1Desc">Guide de durcissement Linux : essentiels pour sécuriser vos serveurs.</p>
+                                    <div class="tags mt-auto">
+                                        <span class="tag is-warning is-light" id="art1Tag1">Linux</span>
+                                        <span class="tag is-info is-light" id="art1Tag2">Sécurité</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-4 article-item" data-tags="network firewall opensource">
+                            <div class="blog-card">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1000&auto=format&fit=crop" alt="Firewall">
+                                </div>
+                                <div class="card-content">
+                                    <div class="content-meta">
+                                        <i class="far fa-calendar-alt mr-1"></i> 28 Dec 2025 • <i class="far fa-user ml-2 mr-1"></i> Laurent Minne
+                                    </div>
+                                    <h3 class="title is-5" style="color: var(--text-main);" id="art2Title">Data-Shield Integration</h3>
+                                    <p class="is-size-7 mb-3" style="color: var(--text-main); opacity: 0.9;" id="art2Desc">Intégration Data-Shield : Implémenter la Blocklist IPv4.</p>
+                                    <div class="tags mt-auto">
+                                        <span class="tag is-danger is-light" id="art2Tag1">Pare-feu</span>
+                                        <span class="tag is-primary is-light" id="art2Tag2">Réseau</span>
+                                        <span class="tag is-success is-light" id="art2Tag3">Open Source</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-4 article-item" data-tags="ai tools">
+                            <div class="blog-card">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000&auto=format&fit=crop" alt="AI">
+                                </div>
+                                <div class="card-content">
+                                    <div class="content-meta">
+                                        <i class="far fa-calendar-alt mr-1"></i> 15 Dec 2025 • <i class="far fa-user ml-2 mr-1"></i> Duggy Tuxy
+                                    </div>
+                                    <h3 class="title is-5" style="color: var(--text-main);" id="art3Title">AI & Cybersecurity</h3>
+                                    <p class="is-size-7 mb-3" style="color: var(--text-main); opacity: 0.9;" id="art3Desc">IA & Cybersécurité : L'impact de l'intelligence artificielle sur la défense.</p>
+                                    <div class="tags mt-auto">
+                                        <span class="tag is-link is-light" id="art3Tag1">IA</span>
+                                        <span class="tag is-info is-light" id="art3Tag2">Outils</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns is-multiline">
+                        <div class="column is-4 article-item" data-tags="windows malware">
+                            <div class="blog-card">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1563206767-5b1d972d9323?q=80&w=1000&auto=format&fit=crop" alt="Malware">
+                                </div>
+                                <div class="card-content">
+                                    <div class="content-meta">
+                                        <i class="far fa-calendar-alt mr-1"></i> 10 Nov 2025 • <i class="far fa-user ml-2 mr-1"></i> Laurent Minne
+                                    </div>
+                                    <h3 class="title is-5" style="color: var(--text-main);" id="art4Title">Windows Malware Analysis</h3>
+                                    <p class="is-size-7 mb-3" style="color: var(--text-main); opacity: 0.9;" id="art4Desc">Analyse de Malware Windows : Introduction à l'analyse sur Windows.</p>
+                                    <div class="tags mt-auto">
+                                        <span class="tag is-info is-light" id="art4Tag1">Windows</span>
+                                        <span class="tag is-danger is-light" id="art4Tag2">Malware</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-4 article-item" data-tags="osint tools">
+                            <div class="blog-card">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop" alt="OSINT">
+                                </div>
+                                <div class="card-content">
+                                    <div class="content-meta">
+                                        <i class="far fa-calendar-alt mr-1"></i> 05 Oct 2025 • <i class="far fa-user ml-2 mr-1"></i> Duggy Tuxy
+                                    </div>
+                                    <h3 class="title is-5" style="color: var(--text-main);" id="art5Title">OSINT Toolkit 2026</h3>
+                                    <p class="is-size-7 mb-3" style="color: var(--text-main); opacity: 0.9;" id="art5Desc">Boîte à outils OSINT 2026 : Les meilleurs outils de reconnaissance.</p>
+                                    <div class="tags mt-auto">
+                                        <span class="tag is-primary is-light" id="art5Tag1">Osint</span>
+                                        <span class="tag is-info is-light" id="art5Tag2">Outils</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-4 article-item" data-tags="macos cybersecurity">
+                            <div class="blog-card">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=1000&auto=format&fit=crop" alt="Mac">
+                                </div>
+                                <div class="card-content">
+                                    <div class="content-meta">
+                                        <i class="far fa-calendar-alt mr-1"></i> 20 Sep 2025 • <i class="far fa-user ml-2 mr-1"></i> Laurent Minne
+                                    </div>
+                                    <h3 class="title is-5" style="color: var(--text-main);" id="art6Title">Securing macOS</h3>
+                                    <p class="is-size-7 mb-3" style="color: var(--text-main); opacity: 0.9;" id="art6Desc">Sécuriser macOS : Bonnes pratiques pour l'environnement Apple.</p>
+                                    <div class="tags mt-auto">
+                                        <span class="tag is-dark is-light" id="art6Tag1">macOS</span>
+                                        <span class="tag is-info is-light" id="art6Tag2">Cybersécurité</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="column is-2">
+                    <div class="glass-panel" style="position: sticky; top: 6rem;">
+                        <h4 class="title is-6 is-uppercase has-text-grey mb-4" id="filterTitle">Filtrer par Tags</h4>
+                        
+                        <div class="tags">
+                            <span class="tag is-medium tag-clickable is-active" data-filter="all" id="tagAll">All</span>
+                            <span class="tag is-medium tag-clickable" data-filter="cybersecurity" id="tagCyber">Cybersécurité</span>
+                            <span class="tag is-medium tag-clickable" data-filter="security" id="tagSec">Sécurité</span>
+                            <span class="tag is-medium tag-clickable" data-filter="firewall" id="tagFirewall">Pare-feu</span>
+                            <span class="tag is-medium tag-clickable" data-filter="network" id="tagNet">Réseau</span>
+                            <span class="tag is-medium tag-clickable" data-filter="malware" id="tagMalware">Malware</span>
+                            <span class="tag is-medium tag-clickable" data-filter="osint" id="tagOsint">Osint</span>
+                            <span class="tag is-medium tag-clickable" data-filter="linux" id="tagLinux">Linux</span>
+                            <span class="tag is-medium tag-clickable" data-filter="windows" id="tagWin">Windows</span>
+                            <span class="tag is-medium tag-clickable" data-filter="macos" id="tagMac">macOS</span>
+                            <span class="tag is-medium tag-clickable" data-filter="tools" id="tagTools">Outils</span>
+                            <span class="tag is-medium tag-clickable" data-filter="opensource" id="tagOpen">Open Source</span>
+                            <span class="tag is-medium tag-clickable" data-filter="ai" id="tagAi">IA</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <footer class="footer has-text-centered is-size-7" style="color: var(--text-main); opacity: 0.7;">
+                <p>&copy; <span id="year"></span> Laurent Minne. <span id="footerText">Fait avec passion.</span></p>
+            </footer>
+
+        </div>
+    </section>
+
+    <script>
+        // --- 1. Gestion Date & Thème ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const themeToggleBtn = document.getElementById('themeToggle');
+        
+        function getPreferredTheme() {
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme) return storedTheme;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        setTheme(getPreferredTheme());
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+
+        // --- 2. Dropdown Mobile ---
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            document.getElementById('langDropdown').classList.toggle('is-active');
+        }
+        document.addEventListener('click', () => {
+            document.getElementById('langDropdown').classList.remove('is-active');
+        });
+
+        // --- 3. Système de Filtrage des Articles ---
+        const filterBtns = document.querySelectorAll('.tag-clickable');
+        const articles = document.querySelectorAll('.article-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                articles.forEach(article => {
+                    const articleTags = article.getAttribute('data-tags');
+                    if (filterValue === 'all' || articleTags.includes(filterValue)) {
+                        article.classList.remove('is-hidden-article');
+                        article.classList.add('fade-in'); 
+                    } else {
+                        article.classList.add('is-hidden-article');
+                    }
+                });
+            });
+        });
+
+        // --- 4. i18n (Traductions Complètes) ---
+        const translations = {
+            fr: {
+                btnBackText: "Accueil",
+                pageTitle: "Derniers Articles",
+                filterTitle: "Filtrer par Tags",
+                footerText: "Fait avec passion.",
+                
+                // Tags
+                tagAll: "Tous",
+                tagCyber: "Cybersécurité",
+                tagSec: "Sécurité",
+                tagFirewall: "Pare-feu",
+                tagNet: "Réseau",
+                tagMalware: "Malware",
+                tagOsint: "Osint",
+                tagLinux: "Linux",
+                tagWin: "Windows",
+                tagMac: "macOS",
+                tagTools: "Outils",
+                tagOpen: "Open Source",
+                tagAi: "IA",
+
+                // Articles (Contenu + Tags internes)
+                art1Title: "Linux Hardening Guide",
+                art1Desc: "Guide de durcissement Linux : essentiels pour sécuriser vos serveurs.",
+                art1Tag1: "Linux", art1Tag2: "Sécurité",
+
+                art2Title: "Data-Shield Integration",
+                art2Desc: "Intégration Data-Shield : Implémenter la Blocklist IPv4.",
+                art2Tag1: "Pare-feu", art2Tag2: "Réseau", art2Tag3: "Open Source",
+
+                art3Title: "AI & Cybersecurity",
+                art3Desc: "IA & Cybersécurité : L'impact de l'intelligence artificielle sur la défense.",
+                art3Tag1: "IA", art3Tag2: "Outils",
+
+                art4Title: "Windows Malware Analysis",
+                art4Desc: "Analyse de Malware Windows : Introduction à l'analyse sur Windows.",
+                art4Tag1: "Windows", art4Tag2: "Malware",
+
+                art5Title: "OSINT Toolkit 2026",
+                art5Desc: "Boîte à outils OSINT 2026 : Les meilleurs outils de reconnaissance.",
+                art5Tag1: "Osint", art5Tag2: "Outils",
+
+                art6Title: "Securing macOS",
+                art6Desc: "Sécuriser macOS : Bonnes pratiques pour l'environnement Apple.",
+                art6Tag1: "macOS", art6Tag2: "Cybersécurité"
+            },
+            en: {
+                btnBackText: "Home",
+                pageTitle: "Latest Articles",
+                filterTitle: "Filter by Tags",
+                footerText: "Made with passion.",
+
+                tagAll: "All",
+                tagCyber: "Cybersecurity",
+                tagSec: "Security",
+                tagFirewall: "Firewall",
+                tagNet: "Network",
+                tagMalware: "Malware",
+                tagOsint: "OSINT",
+                tagLinux: "Linux",
+                tagWin: "Windows",
+                tagMac: "macOS",
+                tagTools: "Tools",
+                tagOpen: "Open Source",
+                tagAi: "AI",
+
+                art1Title: "Linux Hardening Guide",
+                art1Desc: "Linux Hardening Guide: Essentials to secure your servers.",
+                art1Tag1: "Linux", art1Tag2: "Security",
+
+                art2Title: "Data-Shield Integration",
+                art2Desc: "Data-Shield Integration: Implementing the IPv4 Blocklist.",
+                art2Tag1: "Firewall", art2Tag2: "Network", art2Tag3: "Open Source",
+
+                art3Title: "AI & Cybersecurity",
+                art3Desc: "AI & Cybersecurity: The impact of AI on defense.",
+                art3Tag1: "AI", art3Tag2: "Tools",
+
+                art4Title: "Windows Malware Analysis",
+                art4Desc: "Windows Malware Analysis: Introduction to analysis on Windows.",
+                art4Tag1: "Windows", art4Tag2: "Malware",
+
+                art5Title: "OSINT Toolkit 2026",
+                art5Desc: "OSINT Toolkit 2026: The best reconnaissance tools.",
+                art5Tag1: "OSINT", art5Tag2: "Tools",
+
+                art6Title: "Securing macOS",
+                art6Desc: "Securing macOS: Best practices for the Apple environment.",
+                art6Tag1: "macOS", art6Tag2: "Cybersecurity"
+            },
+            es: {
+                btnBackText: "Inicio",
+                pageTitle: "Últimos Artículos",
+                filterTitle: "Filtrar por Etiquetas",
+                footerText: "Hecho con pasión.",
+
+                tagAll: "Todos",
+                tagCyber: "Ciberseguridad",
+                tagSec: "Seguridad",
+                tagFirewall: "Cortafuegos",
+                tagNet: "Red",
+                tagMalware: "Malware",
+                tagOsint: "OSINT",
+                tagLinux: "Linux",
+                tagWin: "Windows",
+                tagMac: "macOS",
+                tagTools: "Herramientas",
+                tagOpen: "Open Source",
+                tagAi: "IA",
+
+                art1Title: "Guía de Endurecimiento Linux",
+                art1Desc: "Guía de Endurecimiento Linux: Esenciales para asegurar sus servidores.",
+                art1Tag1: "Linux", art1Tag2: "Seguridad",
+
+                art2Title: "Integración Data-Shield",
+                art2Desc: "Integración Data-Shield: Implementar la lista de bloqueo IPv4.",
+                art2Tag1: "Cortafuegos", art2Tag2: "Red", art2Tag3: "Open Source",
+
+                art3Title: "IA y Ciberseguridad",
+                art3Desc: "IA y Ciberseguridad: El impacto de la IA en la defensa.",
+                art3Tag1: "IA", art3Tag2: "Herramientas",
+
+                art4Title: "Análisis de Malware en Windows",
+                art4Desc: "Análisis de Malware en Windows: Introducción al análisis en Windows.",
+                art4Tag1: "Windows", art4Tag2: "Malware",
+
+                art5Title: "Kit de Herramientas OSINT 2026",
+                art5Desc: "Kit de Herramientas OSINT 2026: Las mejores herramientas de reconocimiento.",
+                art5Tag1: "OSINT", art5Tag2: "Herramientas",
+
+                art6Title: "Asegurando macOS",
+                art6Desc: "Asegurando macOS: Buenas prácticas para el entorno Apple.",
+                art6Tag1: "macOS", art6Tag2: "Ciberseguridad"
+            }
+        };
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+            
+            // UI Globale
+            document.getElementById('btnBackText').textContent = t.btnBackText;
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+            document.getElementById('filterTitle').textContent = t.filterTitle;
+            document.getElementById('footerText').textContent = t.footerText;
+            
+            // Sidebar Tags
+            document.getElementById('tagAll').textContent = t.tagAll;
+            document.getElementById('tagCyber').textContent = t.tagCyber;
+            document.getElementById('tagSec').textContent = t.tagSec;
+            document.getElementById('tagFirewall').textContent = t.tagFirewall;
+            document.getElementById('tagNet').textContent = t.tagNet;
+            document.getElementById('tagMalware').textContent = t.tagMalware;
+            document.getElementById('tagOsint').textContent = t.tagOsint;
+            document.getElementById('tagLinux').textContent = t.tagLinux;
+            document.getElementById('tagWin').textContent = t.tagWin;
+            document.getElementById('tagMac').textContent = t.tagMac;
+            document.getElementById('tagTools').textContent = t.tagTools;
+            document.getElementById('tagOpen').textContent = t.tagOpen;
+            document.getElementById('tagAi').textContent = t.tagAi;
+
+            // Articles (Titre, Desc, Tags internes)
+            document.getElementById('art1Title').textContent = t.art1Title;
+            document.getElementById('art1Desc').textContent = t.art1Desc;
+            document.getElementById('art1Tag1').textContent = t.tagLinux; 
+            document.getElementById('art1Tag2').textContent = t.tagSec;
+
+            document.getElementById('art2Title').textContent = t.art2Title;
+            document.getElementById('art2Desc').textContent = t.art2Desc;
+            document.getElementById('art2Tag1').textContent = t.tagFirewall;
+            document.getElementById('art2Tag2').textContent = t.tagNet;
+            document.getElementById('art2Tag3').textContent = t.tagOpen;
+
+            document.getElementById('art3Title').textContent = t.art3Title;
+            document.getElementById('art3Desc').textContent = t.art3Desc;
+            document.getElementById('art3Tag1').textContent = t.tagAi;
+            document.getElementById('art3Tag2').textContent = t.tagTools;
+
+            document.getElementById('art4Title').textContent = t.art4Title;
+            document.getElementById('art4Desc').textContent = t.art4Desc;
+            document.getElementById('art4Tag1').textContent = t.tagWin;
+            document.getElementById('art4Tag2').textContent = t.tagMalware;
+
+            document.getElementById('art5Title').textContent = t.art5Title;
+            document.getElementById('art5Desc').textContent = t.art5Desc;
+            document.getElementById('art5Tag1').textContent = t.tagOsint;
+            document.getElementById('art5Tag2').textContent = t.tagTools;
+
+            document.getElementById('art6Title').textContent = t.art6Title;
+            document.getElementById('art6Desc').textContent = t.art6Desc;
+            document.getElementById('art6Tag1').textContent = t.tagMac;
+            document.getElementById('art6Tag2').textContent = t.tagCyber;
+
+            document.documentElement.lang = lang;
+            document.getElementById('langDropdown').classList.remove('is-active');
+        }
+    </script>
+</body>
+</html>
