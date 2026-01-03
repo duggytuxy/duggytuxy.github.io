@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Erreur 404 - Page non trouvée">
+    <meta name="author" content="Laurent Minne">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐧</text></svg>">
+
+    <title>404 - Laurent Minne</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+    <style>
+        /* --- Police JetBrains Mono --- */
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('JetBrainsMono-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --text-main: #000000;
+            --icon-color: #000000;
+            --accent-color: #3e8ed0;
+        }
+
+        [data-theme="dark"] {
+            --glass-bg: rgba(10, 10, 10, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ecf0f1;
+            --icon-color: #ffffff;
+            --accent-color: #3298dc;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            min-height: 100vh;
+            background: url('https://dakg4cmpuclai.cloudf\72ont\2ene\74/h07o89zqix35gwg37odlf2gyz/ZHVnZ3l0dXh5LmdpdGh1Yi5pbw%3D%3D/img.gif') no-repeat center center fixed !important;
+            background-size: cover !important;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- Navbar Fluide & Fixe --- */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: var(--glass-bg);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            min-height: 3.5rem;
+        }
+
+        .navbar-icon-btn {
+            color: var(--icon-color) !important;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        }
+        .navbar-icon-btn:hover {
+            opacity: 0.7;
+        }
+
+        /* --- Conteneur Principal --- */
+        .glass-box {
+            background-color: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 6px;
+            padding: 3rem;
+            margin-top: 5vh; /* Centrer un peu plus verticalement */
+            margin-bottom: 2rem;
+            box-shadow: none !important;
+            text-align: center;
+        }
+
+        /* --- Bouton Principal --- */
+        .button.is-link-card {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            padding: 1rem 2rem;
+            border: 1px solid var(--glass-border);
+            background-color: transparent;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            box-shadow: none !important;
+            font-size: 1.1rem;
+        }
+
+        .button.is-link-card:hover {
+            border-color: var(--accent-color);
+            background-color: rgba(62, 142, 208, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* --- Grosse Icône 404 --- */
+        .error-icon {
+            font-size: 5rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        /* Helpers */
+        hr {
+            background-color: var(--glass-border);
+            height: 1px;
+            margin: 2rem 0;
+        }
+        
+        .footer {
+            background-color: transparent !important;
+            --bulma-footer-background-color: transparent;
+            padding: 2rem 1.5rem;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand" style="width: 100%; display: flex; align-items: center;">
+            
+            <a class="navbar-item" href="../" style="color: var(--text-main);">
+                <span class="icon mr-2"><i class="fas fa-home"></i></span>
+                <span class="has-text-weight-bold" id="navHome">Accueil</span>
+            </a>
+
+            <div style="flex-grow: 1;"></div>
+
+            <div class="navbar-item" style="display: flex; gap: 0.5rem; padding-right: 1rem;">
+                <button class="navbar-icon-btn" id="themeToggle" title="Changer le thème">
+                    <span class="icon is-medium"><i class="fas fa-adjust fa-lg"></i></span>
+                </button>
+                
+                <div class="dropdown is-right" id="langDropdown">
+                    <div class="dropdown-trigger">
+                        <button class="navbar-icon-btn" aria-haspopup="true" aria-controls="dropdown-menu" onclick="toggleDropdown(event)">
+                            <span class="icon is-medium"><i class="fas fa-globe fa-lg"></i></span>
+                            <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content" style="background-color: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
+                            <a href="#" class="dropdown-item" onclick="setLanguage('fr')">🇫🇷 Français</a>
+                            <a href="#" class="dropdown-item" onclick="setLanguage('en')">🇬🇧 English</a>
+                            <a href="#" class="dropdown-item" onclick="setLanguage('es')">🇲🇽 Español</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="glass-box fade-in">
+                
+                <div class="mb-5">
+                    <i class="fas fa-compass error-icon"></i>
+                    <h1 class="title is-1 has-text-weight-bold mb-3" style="color: var(--text-main);">404</h1>
+                    <h2 id="title404" class="subtitle is-4" style="color: var(--text-main);">Page non trouvée</h2>
+                    
+                    <p id="desc404" class="is-size-6 mb-6" style="color: var(--text-main); opacity: 0.8;">
+                        Oups ! Il semble que vous soyez perdu dans le cyberespace.
+                    </p>
+
+                    <a href="../" class="button is-link-card">
+                        <span class="icon mr-2"><i class="fas fa-arrow-left"></i></span>
+                        <span id="btnHome">Retour à l'accueil</span>
+                    </a>
+                </div>
+
+                <footer class="footer has-text-centered is-size-7" style="color: var(--text-main); opacity: 0.7;">
+                    <p>&copy; <span id="year"></span> Laurent Minne. <span id="footerText">Fait avec passion.</span></p>
+                </footer>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- 1. Gestion de la date ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- 2. Gestion du Thème (Dark/Light/Auto) ---
+        const themeToggleBtn = document.getElementById('themeToggle');
+        
+        function getPreferredTheme() {
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme) return storedTheme;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        setTheme(getPreferredTheme());
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+
+        // --- 3. Toggle Dropdown ---
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            document.getElementById('langDropdown').classList.toggle('is-active');
+        }
+        document.addEventListener('click', () => {
+            document.getElementById('langDropdown').classList.remove('is-active');
+        });
+
+        // --- 4. Gestion Multilingue (i18n) ---
+        const translations = {
+            fr: {
+                navHome: "Accueil",
+                title404: "Page non trouvée",
+                desc404: "Oups ! Il semble que vous soyez perdu dans le cyberespace.",
+                btnHome: "Retour à l'accueil",
+                footerText: "Fait avec passion."
+            },
+            en: {
+                navHome: "Home",
+                title404: "Page Not Found",
+                desc404: "Oops! It seems you are lost in cyberspace.",
+                btnHome: "Back to Home",
+                footerText: "Made with passion."
+            },
+            es: {
+                navHome: "Inicio",
+                title404: "Página No Encontrada",
+                desc404: "¡Ups! Parece que te has perdido en el ciberespacio.",
+                btnHome: "Volver al Inicio",
+                footerText: "Hecho con pasión."
+            }
+        };
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+            
+            document.getElementById('navHome').textContent = t.navHome;
+            document.getElementById('title404').textContent = t.title404;
+            document.getElementById('desc404').textContent = t.desc404;
+            document.getElementById('btnHome').textContent = t.btnHome;
+            document.getElementById('footerText').textContent = t.footerText;
+
+            document.documentElement.lang = lang;
+            document.getElementById('langDropdown').classList.remove('is-active');
+        }
+    </script>
+</body>
+</html>
