@@ -3,297 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Linktree of Laurent Minne aka Duggy Tuxy - Security Engineer & Cybersecurity">
+    <meta name="description" content="Terminal Portfolio of Laurent Minne aka Duggy Tuxy - Security Engineer">
     <meta name="author" content="Laurent Minne">
     
     <link rel="icon" type="image/png" href="duggytuxy_laurent_minne.png">
-
-    <title>Laurent Minne aka Duggy Tuxy</title>
+    <title>duggytuxy@portfolio: ~</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
     <style>
+        /* --- 1. Font Setup --- */
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('JetBrainsMono-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* --- 2. Variables (Themes) --- */
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.9);
-            --glass-border: rgba(0, 0, 0, 0.1);
-            --text-main: #000000;
-            --icon-color: #000000;
-            --accent-color: #3e8ed0;
+            --bg-color: #f0f0f0;
+            --text-color: #333333;
+            --prompt-user: #0000aa; /* Blue for user */
+            --prompt-host: #000000;
+            --prompt-dir: #008000; /* Green for dir */
+            --accent-cmd: #b22222; /* Red for commands */
+            --border-color: #cccccc;
+            --link-hover: #e0e0e0;
+            --code-bg: #e5e5e5;
         }
 
         [data-theme="dark"] {
-            --glass-bg: rgba(10, 10, 10, 0.9);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #ecf0f1;
-            --icon-color: #ffffff;
-            --accent-color: #3298dc;
+            --bg-color: #1e1e1e; /* VSCode-like dark or classic terminal black */
+            --text-color: #e0e0e0;
+            --prompt-user: #00ff00; /* Classic Terminal Green */
+            --prompt-host: #e0e0e0;
+            --prompt-dir: #5fafff; /* Blue directory */
+            --accent-cmd: #ffff00; /* Yellow commands */
+            --border-color: #444444;
+            --link-hover: #2d2d2d;
+            --code-bg: #2a2a2a;
         }
 
+        /* --- 3. Global Styles --- */
         body {
-            font-family: 'Work Sans', sans-serif;
+            font-family: 'JetBrains Mono', monospace; /* La police demandée */
+            background-color: var(--bg-color);
+            color: var(--text-color);
             min-height: 100vh;
-            background: url('https://dakg4cmpuclai.cloudf\72ont\2ene\74/h07o89zqix35gwg37odlf2gyz/ZHVnZ3l0dXh5LmdpdGh1Yi5pbw%3D%3D/img.gif') no-repeat center center fixed !important;
-            background-size: cover !important;
+            display: flex;
+            flex-direction: column;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* --- Navbar Fluide & Fixe --- */
-        .navbar {
-            backdrop-filter: blur(10px);
-            background-color: var(--glass-bg);
-            border-bottom: 1px solid var(--glass-border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            min-height: 3.5rem;
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: var(--prompt-user);
         }
 
-        .navbar-icon-btn {
-            color: var(--icon-color) !important;
+        /* Marge spécifique de 3rem sur les côtés */
+        .terminal-container {
+            margin: 0 3rem; 
+            padding-top: 2rem;
+            flex: 1;
+        }
+
+        @media screen and (max-width: 768px) {
+            .terminal-container {
+                margin: 0 1rem; /* Marge réduite sur mobile pour lisibilité */
+            }
+        }
+
+        /* --- 4. Navbar (Tmux/Status bar style) --- */
+        .navbar {
+            background-color: var(--code-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 3rem;
+        }
+        .navbar-brand, .navbar-item {
+            font-size: 0.9rem;
+        }
+        #themeToggle {
+            background: none;
             border: none;
-            background: transparent;
+            color: var(--text-color);
             cursor: pointer;
-            padding: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        #themeToggle:hover {
+            color: var(--prompt-user);
+        }
+
+        /* --- 5. Terminal Components --- */
+        .prompt-line {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: opacity 0.2s;
-        }
-        .navbar-icon-btn:hover {
-            opacity: 0.7;
-        }
-
-        /* --- Conteneur Principal --- */
-        .glass-box {
-            background-color: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 6px;
-            padding: 2rem;
+            margin-bottom: 1.5rem;
             margin-top: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: none !important; 
+            flex-wrap: wrap;
         }
 
-        /* --- Avatar --- */
+        .prompt-text {
+            margin-right: 10px;
+        }
+
+        .user-part { color: var(--prompt-user); font-weight: bold; }
+        .host-part { color: var(--text-color); }
+        .dir-part { color: var(--prompt-dir); font-weight: bold; }
+        .git-part { color: var(--accent-cmd); }
+        .command-typed { color: var(--text-color); margin-left: 0.5rem; }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: var(--text-color);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- 6. Sections --- */
+        .output-block {
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+            border-left: 2px solid var(--border-color);
+        }
+
         .avatar-frame {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            padding: 4px;
-            margin: 0 auto 1.5rem;
-            border: 2px solid var(--glass-border);
-            background: transparent;
+            border: 2px solid var(--text-color);
+            padding: 5px;
+            width: 130px;
+            height: 130px;
+            margin-bottom: 1rem;
         }
         
         .avatar-img {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             object-fit: cover;
-            background-image: url('duggytuxy_laurent_minne.png'); 
-            background-size: cover;
         }
 
-        /* --- Boutons Links --- */
-        .button.is-link-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: auto;
-            padding: 1rem 1.5rem;
-            margin-bottom: 0.75rem;
-            border: 1px solid var(--glass-border);
+        /* Links (Linktree style but Terminal) */
+        .terminal-link {
+            display: block;
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        .terminal-link:hover {
+            background-color: var(--link-hover);
+            border-color: var(--prompt-user);
+            transform: translateX(5px);
+        }
+
+        /* Skill Tags */
+        .tag.is-terminal {
             background-color: transparent;
-            color: var(--text-main);
-            transition: all 0.2s ease;
-            box-shadow: none !important;
-            white-space: normal;
-            text-align: left;
+            color: var(--prompt-user);
+            border: 1px solid var(--prompt-user);
+            border-radius: 0;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
         }
 
-        .button.is-link-card:hover {
-            border-color: var(--accent-color);
-            background-color: rgba(62, 142, 208, 0.1);
-            transform: translateX(2px);
+        /* Timeline / Resume */
+        .job-title {
+            color: var(--prompt-dir); /* Greenish */
+            font-weight: bold;
         }
-
-        /* Masquer les flèches/icônes de droite sur tablette et mobile */
-        @media screen and (max-width: 1023px) {
-            .button.is-link-card > .icon:last-child {
-                display: none !important;
-            }
+        .company-name {
+            color: var(--accent-cmd);
         }
-
-        .icon-text-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .date-range {
+            opacity: 0.7;
+            font-size: 0.9em;
         }
 
         /* Helpers */
         hr {
-            background-color: var(--glass-border);
+            background-color: var(--border-color);
             height: 1px;
         }
         
         .footer {
-            background-color: transparent !important;
-            --bulma-footer-background-color: transparent;
-            padding: 2rem 1.5rem;
+            background-color: transparent;
+            padding: 2rem 0;
+            margin: 0 3rem;
+            border-top: 1px dashed var(--border-color);
+            color: var(--text-color);
         }
-
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        @keyframes fadeIn { to { opacity: 1; } }
 
     </style>
 </head>
 <body>
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand" style="width: 100%; display: flex; align-items: center;">
-            
-            <div style="flex-grow: 1;"></div>
-
-            <div class="navbar-item" style="display: flex; gap: 0.5rem; padding-right: 1rem;">
-                <button class="navbar-icon-btn" id="themeToggle" title="Change Theme">
-                    <span class="icon is-medium"><i class="fas fa-adjust fa-lg"></i></span>
-                </button>
+        <div class="navbar-brand">
+            <span class="navbar-item">
+                <i class="fas fa-terminal mr-2"></i> duggytuxy@portfolio
+            </span>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <button id="themeToggle">[ Switch Theme ]</button>
             </div>
         </div>
     </nav>
 
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="glass-box fade-in">
-                
-                <div class="has-text-centered mb-5">
-                    <div class="avatar-frame">
-                        <div class="avatar-img"></div>
-                    </div>
-                    <h1 class="title is-4 is-uppercase has-text-weight-bold mb-2" style="color: var(--text-main);">Laurent Minne</h1>
-                    <p class="subtitle is-6 mb-2" style="color: var(--text-main);">aka <span class="has-text-weight-bold">Duggy Tuxy</span></p>
-                    <p class="is-size-6" style="color: var(--text-main);">
-                        Security Engineer | Cybersecurity & Open Source Enthusiast
+    <div class="terminal-container">
+        
+        <div class="columns">
+            <div class="column is-one-quarter has-text-centered-mobile">
+                 <div class="avatar-frame" style="margin: 0 auto;">
+                    <img src="duggytuxy_laurent_minne.png" alt="Avatar" class="avatar-img">
+                </div>
+            </div>
+            <div class="column">
+                <div class="prompt-line" style="margin-top: 0;">
+                    <span class="prompt-text">
+                        <span class="user-part">duggytuxy</span><span class="host-part">@portfolio</span>:<span class="dir-part">~</span><span class="git-part"> (main)</span>$
+                    </span>
+                    <span class="command-typed">whoami</span>
+                </div>
+                <div class="output-block">
+                    <h1 class="title is-4 is-uppercase has-text-weight-bold" style="color: var(--text-color);">Laurent Minne</h1>
+                    <p class="subtitle is-6" style="color: var(--prompt-dir);">aka Duggy Tuxy</p>
+                    <p>Security Engineer | Cybersecurity & Open Source Enthusiast</p>
+                    <p class="mt-2"><i class="fas fa-map-marker-alt mr-2"></i>Somewhere, in Belgium</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="prompt-line">
+            <span class="prompt-text">
+                <span class="user-part">duggytuxy</span><span class="host-part">@portfolio</span>:<span class="dir-part">~/links</span><span class="git-part"> (main)</span>$
+            </span>
+            <span class="command-typed">ls -la ./socials</span><span class="cursor"></span>
+        </div>
+
+        <div class="columns is-multiline output-block">
+            <div class="column is-4">
+                <a href="https://www.linkedin.com/in/laurent-minne/" target="_blank" class="terminal-link">
+                    <span class="icon mr-2"><i class="fab fa-linkedin"></i></span> LinkedIn
+                </a>
+            </div>
+            <div class="column is-4">
+                <a href="https://tryhackme.com/p/duggytuxy" target="_blank" class="terminal-link">
+                    <span class="icon mr-2"><i class="fas fa-user-secret"></i></span> TryHackMe
+                </a>
+            </div>
+            <div class="column is-4">
+                <a href="https://duggytuxy.github.io/blog/" class="terminal-link">
+                    <span class="icon mr-2"><i class="fas fa-rss"></i></span> My Blog (Soon)
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="prompt-line">
+            <span class="prompt-text">
+                <span class="user-part">duggytuxy</span><span class="host-part">@portfolio</span>:<span class="dir-part">~/projects</span><span class="git-part"> (dev)</span>$
+            </span>
+            <span class="command-typed">cat README.md | grep "Data-Shield"</span>
+        </div>
+
+        <div class="output-block">
+            <h3 class="title is-5" style="color: var(--prompt-user);">Data-Shield IPv4 Blocklist</h3>
+            <p class="mb-3">A robust IPv4 blocklist for network security. <span class="tag is-terminal is-small">Open Source</span></p>
+            
+            <div class="buttons">
+                <a href="https://gitlab.com/duggytuxy/Data-Shield-IPv4-Blocklist" target="_blank" class="button is-small is-outlined" style="border-color: var(--text-color); color: var(--text-color); background: transparent;">
+                    <span class="icon"><i class="fab fa-gitlab"></i></span><span>GitLab</span>
+                </a>
+                <a href="https://github.com/duggytuxy/Data-Shield_IPv4_Blocklist" target="_blank" class="button is-small is-outlined" style="border-color: var(--text-color); color: var(--text-color); background: transparent;">
+                    <span class="icon"><i class="fab fa-github"></i></span><span>GitHub</span>
+                </a>
+				<a href="https://bitbucket.org/duggytuxy/data-shield-ipv4-blocklist/src/main/" target="_blank" class="button is-small is-outlined" style="border-color: var(--text-color); color: var(--text-color); background: transparent;">
+                    <span class="icon"><i class="fab fa-bitbucket"></i></span><span>BitBucket</span>
+                </a>
+                <a href="https://codeberg.org/duggytuxy21/Data-Shield_IPv4_Blocklist" target="_blank" class="button is-small is-outlined" style="border-color: var(--text-color); color: var(--text-color); background: transparent;">
+                    <span class="icon"><i class="fas fa-mountain"></i></span><span>Codeberg</span>
+                </a>
+                <a href="https://ko-fi.com/laurentmduggytuxy" target="_blank" class="button is-small is-outlined" style="border-color: var(--accent-cmd); color: var(--accent-cmd); background: transparent;">
+                    <span class="icon"><i class="fas fa-mug-hot"></i></span><span>Donate</span>
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="columns">
+            <div class="column is-4">
+                <div class="prompt-line">
+                    <span class="prompt-text">
+                        <span class="user-part">duggytuxy</span><span class="host-part">@portfolio</span>:<span class="dir-part">~</span>$
+                    </span>
+                    <span class="command-typed">cat about.txt</span>
+                </div>
+                <div class="output-block has-text-justified">
+                    <p class="is-size-7">
+                        Security Engineer and author of the Data-Shield IPv4 Blocklist. I am a defensive cybersecurity enthusiast, Open Source and privacy advocate. A perpetual learner, I have been evolving in IT for 34 years.
                     </p>
                 </div>
 
-                <hr>
-
-                <div class="mb-6">
-                    <h2 class="title is-6 is-uppercase has-text-centered mb-4" style="color: var(--text-main); opacity: 0.7;">My Networks & Resume</h2>
-
-                    <a href="https://duggytuxy.github.io/blog/blog.html" class="button is-fullwidth is-medium is-link-card">
-                        <div class="icon-text-wrapper">
-                            <span class="icon has-text-link"><i class="fas fa-laptop-code"></i></span>
-                            <span>Personal Website</span>
-                        </div>
-                        <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-chevron-right"></i></span>
-                    </a>
-
-                    <a href="https://www.linkedin.com/in/laurent-minne/" target="_blank" class="button is-fullwidth is-medium is-link-card">
-                        <div class="icon-text-wrapper">
-                            <span class="icon has-text-info"><i class="fab fa-linkedin"></i></span>
-                            <span>LinkedIn</span>
-                        </div>
-                        <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-chevron-right"></i></span>
-                    </a>
-
-                    <a href="https://tryhackme.com/p/duggytuxy" target="_blank" class="button is-fullwidth is-medium is-link-card">
-                        <div class="icon-text-wrapper">
-                            <span class="icon has-text-danger"><i class="fas fa-user-secret"></i></span>
-                            <span>TryHackMe</span>
-                        </div>
-                        <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-chevron-right"></i></span>
-                    </a>
-
-                    <a href="https://duggytuxy.github.io/cv/cv.html" class="button is-fullwidth is-medium is-link-card">
-                        <div class="icon-text-wrapper">
-                            <span class="icon has-text-danger"><i class="fas fa-briefcase"></i></span>
-                            <span>My Resume</span>
-                        </div>
-                        <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-chevron-right"></i></span>
-                    </a>
+                <div class="prompt-line">
+                    <span class="prompt-text">
+                        <span class="user-part">duggytuxy</span><span class="host-part">@portfolio</span>:<span class="dir-part">~</span>$
+                    </span>
+                    <span class="command-typed">./show_skills.sh</span>
                 </div>
-
-                <hr>
-
-                <div>
-                    <h3 class="title is-6 is-uppercase has-text-centered mb-4" style="color: var(--text-main); opacity: 0.7;">Featured Project</h3>
-                    
-                    <div class="box" style="background: transparent; border: none; padding: 0; box-shadow: none;">
-                        <div class="has-text-centered mb-4">
-                            <span class="tag is-success is-light mb-2">Open Source</span>
-                            <h4 class="title is-5 has-text-weight-bold" style="color: var(--text-main);">Data-Shield IPv4 Blocklist</h4>
-                            <p class="is-size-7" style="color: var(--text-main);">A robust IPv4 blocklist for network security.</p>
-                        </div>
-
-                        <a href="https://gitlab.com/duggytuxy/Data-Shield-IPv4-Blocklist" target="_blank" class="button is-fullwidth is-medium is-link-card">
-                            <div class="icon-text-wrapper">
-                                <span class="icon has-text-warning"><i class="fab fa-gitlab"></i></span>
-                                <span>GitLab (Main)</span>
-                            </div>
-                            <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-external-link-alt"></i></span>
-                        </a>
-
-                        <a href="https://github.com/duggytuxy/Data-Shield_IPv4_Blocklist" target="_blank" class="button is-fullwidth is-medium is-link-card">
-                            <div class="icon-text-wrapper">
-                                <span class="icon" style="color: var(--text-main);"><i class="fab fa-github"></i></span>
-                                <span>GitHub (Mirror)</span>
-                            </div>
-                            <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-external-link-alt"></i></span>
-                        </a>
-
-                        <a href="https://bitbucket.org/duggytuxy/data-shield-ipv4-blocklist/src/main/" target="_blank" class="button is-fullwidth is-medium is-link-card">
-                            <div class="icon-text-wrapper">
-                                <span class="icon has-text-info"><i class="fab fa-bitbucket"></i></span>
-                                <span>BitBucket (Mirror)</span>
-                            </div>
-                            <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-external-link-alt"></i></span>
-                        </a>
-
-                        <a href="https://codeberg.org/duggytuxy21/Data-Shield_IPv4_Blocklist" target="_blank" class="button is-fullwidth is-medium is-link-card">
-                            <div class="icon-text-wrapper">
-                                <span class="icon has-text-info"><i class="fas fa-mountain"></i></span>
-                                <span>Codeberg (Mirror)</span>
-                            </div>
-                            <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-external-link-alt"></i></span>
-                        </a>
-
-                        <a href="https://ko-fi.com/laurentmduggytuxy" target="_blank" class="button is-fullwidth is-medium is-link-card">
-                            <div class="icon-text-wrapper">
-                                <span class="icon has-text-danger"><i class="fas fa-mug-hot"></i></span>
-                                <span>Donate (Ko-Fi)</span>
-                            </div>
-                            <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-heart"></i></span>
-                        </a>
-
+                <div class="output-block">
+                    <div class="mb-4">
+                        <p class="has-text-weight-bold mb-2" style="color: var(--accent-cmd);">[ Cybersecurity ]</p>
+                        <span class="tag is-terminal">SOC / Incident Response</span>
+                        <span class="tag is-terminal">ISO27001 / NIS2</span>
+                        <span class="tag is-terminal">EBIOS RM</span>
+                        <span class="tag is-terminal">Vulnerability Mgmt</span>
+                    </div>
+                    <div>
+                        <p class="has-text-weight-bold mb-2" style="color: var(--accent-cmd);">[ Tech & Tools ]</p>
+                        <span class="tag is-terminal">Linux / Windows</span>
+                        <span class="tag is-terminal">Wazuh / n8n</span>
+                        <span class="tag is-terminal">FortiOS / PAN-OS</span>
+                        <span class="tag is-terminal">Active Directory</span>
+                        <span class="tag is-terminal">Python / Bash</span>
                     </div>
                 </div>
 
-                <footer class="footer has-text-centered is-size-7" style="color: var(--text-main); opacity: 0.7;">
-                    <p>&copy; <span id="year"></span> Laurent Minne. <span>Made with passion.</span></p>
-                </footer>
+                <div class="prompt-line">
+                    <span class="prompt-text">
+                        <span class="user-part">duggytuxy</span><span class="host-part">@portfolio</span>:<span class="dir-part">~</span>$
+                    </span>
+                    <span class="command-typed">ls certs/</span>
+                </div>
+                <div class="output-block is-size-7">
+                    <ul style="list-style: none; padding: 0;">
+                        <li class="mb-2"><span style="color: var(--prompt-dir);">rw-r--r--</span> CompTIA SecurityX (2024)</li>
+                        <li class="mb-2"><span style="color: var(--prompt-dir);">rw-r--r--</span> Cisco Ethical Hacking (2023)</li>
+                        <li class="mb-2"><span style="color: var(--prompt-dir);">rw-r--r--</span> Fortinet NSE 5 (2022)</li>
+                        <li class="mb-2"><span style="color: var(--prompt-dir);">r--r--r--</span> ANSSI Cybersecurity (2020)</li>
+                    </ul>
+                </div>
+            </div>
 
+            <div class="column is-8">
+                <div class="prompt-line">
+                    <span class="prompt-text">
+                        <span class="user-part">duggytuxy</span><span class="host-part">@portfolio</span>:<span class="dir-part">~/experience</span>$
+                    </span>
+                    <span class="command-typed">tail -n 10 work_history.log</span>
+                </div>
+
+                <div class="output-block">
+                    
+                    <div class="mb-5">
+                        <p class="job-title">> Security Engineer & CISO</p>
+                        <p class="is-size-7 mb-1">
+                            <span class="company-name">ACENSI</span> | <span class="date-range">Jul 2024 - Present</span>
+                        </p>
+                        <div class="content is-size-7 pl-3" style="border-left: 1px dotted var(--text-color);">
+                            <p>Information Systems Security Roadmap 2024-2026. Security clearance management (Secret). Incident Response & SOC Collaboration.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <p class="job-title">> IVVQ Engineer</p>
+                        <p class="is-size-7 mb-1">
+                            <span class="company-name">Thales</span> | <span class="date-range">Jan 2024 - Jul 2024</span>
+                        </p>
+                        <div class="content is-size-7 pl-3" style="border-left: 1px dotted var(--text-color);">
+                            <p>Integration, Verification, Validation & Qualification. Risk assessment (EBIOS RM, ISO27001, NIS2).</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <p class="job-title">> Information Systems Security Manager</p>
+                        <p class="is-size-7 mb-1">
+                            <span class="company-name">CHR Haute Senne</span> | <span class="date-range">Oct 2022 - Jan 2024</span>
+                        </p>
+                        <div class="content is-size-7 pl-3" style="border-left: 1px dotted var(--text-color);">
+                            <p>CISO Assistant. Vulnerability management, ISO27001/GDPR implementation. Active Directory Audit & PAM.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <p class="job-title">> Security & Cyber Security Engineer</p>
+                        <p class="is-size-7 mb-1">
+                            <span class="company-name">BE Confidential</span> | <span class="date-range">Nov 2013 - Oct 2022</span>
+                        </p>
+                        <div class="content is-size-7 pl-3" style="border-left: 1px dotted var(--text-color);">
+                            <p>Risk analysis, system hardening, deceptive security (VPS/VMs). Firewall administration (FortiOS).</p>
+                        </div>
+                    </div>
+
+                    <div class="is-size-7 has-text-grey">
+                        <p>> Older logs archived (ENGIE 2004-2013, Triangle Interim 1994-2003)...</p>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </section>
+
+    </div>
+
+    <footer class="footer has-text-centered is-size-7">
+        <p>&copy; <span id="year"></span> Laurent Minne. <span style="color: var(--prompt-dir);">echo "Made with passion"</span></p>
+    </footer>
 
     <script>
-        // --- 1. Gestion de la date ---
+        // --- Date ---
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // --- 2. Gestion du Thème (Dark/Light/Auto) ---
+        // --- Theme Logic ---
         const themeToggleBtn = document.getElementById('themeToggle');
         
         function getPreferredTheme() {
@@ -307,8 +440,10 @@
             localStorage.setItem('theme', theme);
         }
 
+        // Initialize
         setTheme(getPreferredTheme());
 
+        // Event Listener
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
