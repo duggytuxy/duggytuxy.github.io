@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Erreur 404 - Page non trouvée">
+    <meta name="description" content="Error 404 - Page not found">
     <meta name="author" content="Laurent Minne">
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐧</text></svg>">
+    <link rel="icon" type="image/png" href="duggytuxy_laurent_minne.png">
 
     <title>404 - Laurent Minne</title>
 
@@ -14,15 +14,11 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 
-    <style>
-        /* --- Police JetBrains Mono --- */
-        @font-face {
-            font-family: 'JetBrains Mono';
-            src: url('JetBrainsMono-Regular.woff2') format('woff2');
-            font-weight: 400;
-            font-style: normal;
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+    <style>
         :root {
             --glass-bg: rgba(255, 255, 255, 0.9);
             --glass-border: rgba(0, 0, 0, 0.1);
@@ -40,7 +36,7 @@
         }
 
         body {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Work Sans', sans-serif;
             min-height: 100vh;
             background: url('https://dakg4cmpuclai.cloudf\72ont\2ene\74/h07o89zqix35gwg37odlf2gyz/ZHVnZ3l0dXh5LmdpdGh1Yi5pbw%3D%3D/img.gif') no-repeat center center fixed !important;
             background-size: cover !important;
@@ -81,7 +77,7 @@
             -webkit-backdrop-filter: blur(10px);
             border-radius: 6px;
             padding: 3rem;
-            margin-top: 5vh; /* Centrer un peu plus verticalement */
+            margin-top: 5vh;
             margin-bottom: 2rem;
             box-shadow: none !important;
             text-align: center;
@@ -142,33 +138,17 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand" style="width: 100%; display: flex; align-items: center;">
             
-            <a class="navbar-item" href="../" style="color: var(--text-main);">
+            <a class="navbar-item" href="index.html" style="color: var(--text-main);">
                 <span class="icon mr-2"><i class="fas fa-home"></i></span>
-                <span class="has-text-weight-bold" id="navHome">Accueil</span>
+                <span class="has-text-weight-bold">Home</span>
             </a>
 
             <div style="flex-grow: 1;"></div>
 
             <div class="navbar-item" style="display: flex; gap: 0.5rem; padding-right: 1rem;">
-                <button class="navbar-icon-btn" id="themeToggle" title="Changer le thème">
+                <button class="navbar-icon-btn" id="themeToggle" title="Change Theme">
                     <span class="icon is-medium"><i class="fas fa-adjust fa-lg"></i></span>
                 </button>
-                
-                <div class="dropdown is-right" id="langDropdown">
-                    <div class="dropdown-trigger">
-                        <button class="navbar-icon-btn" aria-haspopup="true" aria-controls="dropdown-menu" onclick="toggleDropdown(event)">
-                            <span class="icon is-medium"><i class="fas fa-globe fa-lg"></i></span>
-                            <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
-                        </button>
-                    </div>
-                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                        <div class="dropdown-content" style="background-color: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
-                            <a href="#" class="dropdown-item" onclick="setLanguage('fr')">🇫🇷 Français</a>
-                            <a href="#" class="dropdown-item" onclick="setLanguage('en')">🇬🇧 English</a>
-                            <a href="#" class="dropdown-item" onclick="setLanguage('es')">🇲🇽 Español</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </nav>
@@ -179,21 +159,22 @@
                 
                 <div class="mb-5">
                     <i class="fas fa-compass error-icon"></i>
-                    <h1 class="title is-1 has-text-weight-bold mb-3" style="color: var(--text-main);">404</h1>
-                    <h2 id="title404" class="subtitle is-4" style="color: var(--text-main);">Page non trouvée</h2>
                     
-                    <p id="desc404" class="is-size-6 mb-6" style="color: var(--text-main); opacity: 0.8;">
-                        Oups ! Il semble que vous soyez perdu dans le cyberespace.
+                    <h1 class="title is-1 has-text-weight-bold mb-3" style="color: var(--text-main);">404</h1>
+                    <h2 class="subtitle is-4" style="color: var(--text-main);">Page Not Found</h2>
+                    
+                    <p class="is-size-6 mb-6" style="color: var(--text-main); opacity: 0.8;">
+                        Oops! It seems you are lost in cyberspace.
                     </p>
 
-                    <a href="../" class="button is-link-card">
+                    <a href="index.html" class="button is-link-card">
                         <span class="icon mr-2"><i class="fas fa-arrow-left"></i></span>
-                        <span id="btnHome">Retour à l'accueil</span>
+                        <span>Back to Home</span>
                     </a>
                 </div>
 
                 <footer class="footer has-text-centered is-size-7" style="color: var(--text-main); opacity: 0.7;">
-                    <p>&copy; <span id="year"></span> Laurent Minne. <span id="footerText">Fait avec passion.</span></p>
+                    <p>&copy; <span id="year"></span> Laurent Minne. <span>Made with passion.</span></p>
                 </footer>
 
             </div>
@@ -225,53 +206,6 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             setTheme(newTheme);
         });
-
-        // --- 3. Toggle Dropdown ---
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            document.getElementById('langDropdown').classList.toggle('is-active');
-        }
-        document.addEventListener('click', () => {
-            document.getElementById('langDropdown').classList.remove('is-active');
-        });
-
-        // --- 4. Gestion Multilingue (i18n) ---
-        const translations = {
-            fr: {
-                navHome: "Accueil",
-                title404: "Page non trouvée",
-                desc404: "Oups ! Il semble que vous soyez perdu dans le cyberespace.",
-                btnHome: "Retour à l'accueil",
-                footerText: "Fait avec passion."
-            },
-            en: {
-                navHome: "Home",
-                title404: "Page Not Found",
-                desc404: "Oops! It seems you are lost in cyberspace.",
-                btnHome: "Back to Home",
-                footerText: "Made with passion."
-            },
-            es: {
-                navHome: "Inicio",
-                title404: "Página No Encontrada",
-                desc404: "¡Ups! Parece que te has perdido en el ciberespacio.",
-                btnHome: "Volver al Inicio",
-                footerText: "Hecho con pasión."
-            }
-        };
-
-        function setLanguage(lang) {
-            const t = translations[lang];
-            
-            document.getElementById('navHome').textContent = t.navHome;
-            document.getElementById('title404').textContent = t.title404;
-            document.getElementById('desc404').textContent = t.desc404;
-            document.getElementById('btnHome').textContent = t.btnHome;
-            document.getElementById('footerText').textContent = t.footerText;
-
-            document.documentElement.lang = lang;
-            document.getElementById('langDropdown').classList.remove('is-active');
-        }
     </script>
 </body>
 </html>
