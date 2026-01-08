@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Linktree de Laurent Minne aka Duggy Tuxy - Ingénieur en sécurité des systèmes d'informations et en Cybersécurité">
+    <meta name="description" content="Linktree of Laurent Minne aka Duggy Tuxy - Security Engineer & Cybersecurity">
     <meta name="author" content="Laurent Minne">
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐧</text></svg>">
+    <link rel="icon" type="image/png" href="duggytuxy_laurent_minne.png">
 
     <title>Laurent Minne aka Duggy Tuxy</title>
 
@@ -14,15 +14,11 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 
-    <style>
-        /* --- Police JetBrains Mono --- */
-        @font-face {
-            font-family: 'JetBrains Mono';
-            src: url('JetBrainsMono-Regular.woff2') format('woff2');
-            font-weight: 400;
-            font-style: normal;
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+    <style>
         :root {
             --glass-bg: rgba(255, 255, 255, 0.9);
             --glass-border: rgba(0, 0, 0, 0.1);
@@ -40,7 +36,7 @@
         }
 
         body {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Work Sans', sans-serif;
             min-height: 100vh;
             background: url('https://dakg4cmpuclai.cloudf\72ont\2ene\74/h07o89zqix35gwg37odlf2gyz/ZHVnZ3l0dXh5LmdpdGh1Yi5pbw%3D%3D/img.gif') no-repeat center center fixed !important;
             background-size: cover !important;
@@ -129,7 +125,7 @@
             transform: translateX(2px);
         }
 
-        /* Masquer les flèches/icônes de droite sur tablette et mobile (max-width: 1023px inclut les tablettes en mode portrait/paysage standard) */
+        /* Masquer les flèches/icônes de droite sur tablette et mobile */
         @media screen and (max-width: 1023px) {
             .button.is-link-card > .icon:last-child {
                 display: none !important;
@@ -171,26 +167,10 @@
 
             <div class="navbar-item" style="display: flex; gap: 0.5rem; padding-right: 1rem;">
                 
-                <button class="navbar-icon-btn" id="themeToggle" title="Changer le thème">
+                <button class="navbar-icon-btn" id="themeToggle" title="Change Theme">
                     <span class="icon is-medium"><i class="fas fa-adjust fa-lg"></i></span>
                 </button>
                 
-                <div class="dropdown is-right" id="langDropdown">
-                    <div class="dropdown-trigger">
-                        <button class="navbar-icon-btn" aria-haspopup="true" aria-controls="dropdown-menu" onclick="toggleDropdown(event)">
-                            <span class="icon is-medium"><i class="fas fa-globe fa-lg"></i></span>
-                            <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
-                        </button>
-                    </div>
-                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                        <div class="dropdown-content" style="background-color: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
-                            <a href="#" class="dropdown-item" onclick="setLanguage('fr')">🇫🇷 Français</a>
-                            <a href="#" class="dropdown-item" onclick="setLanguage('en')">🇬🇧 English</a>
-                            <a href="#" class="dropdown-item" onclick="setLanguage('es')">🇲🇽 Español</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </nav>
@@ -205,20 +185,20 @@
                     </div>
                     <h1 class="title is-4 is-uppercase has-text-weight-bold mb-2" style="color: var(--text-main);">Laurent Minne</h1>
                     <p class="subtitle is-6 mb-2" style="color: var(--text-main);">aka <span class="has-text-weight-bold">Duggy Tuxy</span></p>
-                    <p id="bioText" class="is-size-6" style="color: var(--text-main);">
-                        Ingénieur Sécurité | Cybersécurité & Passionné d'Open Source
+                    <p class="is-size-6" style="color: var(--text-main);">
+                        Security Engineer | Cybersecurity & Open Source Enthusiast
                     </p>
                 </div>
 
                 <hr>
 
                 <div class="mb-6">
-                    <h2 id="socialTitle" class="title is-6 is-uppercase has-text-centered mb-4" style="color: var(--text-main); opacity: 0.7;">Mes Réseaux & CV</h2>
+                    <h2 class="title is-6 is-uppercase has-text-centered mb-4" style="color: var(--text-main); opacity: 0.7;">My Networks & Resume</h2>
 
-                    <a href="https://duggytuxy.github.io/blog/blog.html" class="button is-fullwidth is-large is-link-card">
+                    <a href="https://duggytuxy.github.io" target="_blank" class="button is-fullwidth is-large is-link-card">
                         <div class="icon-text-wrapper">
                             <span class="icon has-text-link"><i class="fas fa-laptop-code"></i></span>
-                            <span id="labelWeb">Mon Blog</span>
+                            <span>Personal Website</span>
                         </div>
                         <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-chevron-right"></i></span>
                     </a>
@@ -250,7 +230,7 @@
                     <a href="https://duggytuxy.github.io/cv/cv.html" class="button is-fullwidth is-large is-link-card">
                         <div class="icon-text-wrapper">
                             <span class="icon has-text-danger"><i class="fas fa-briefcase"></i></span>
-                            <span id="labelCV">Mon CV</span>
+                            <span>My Resume</span>
                         </div>
                         <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-chevron-right"></i></span>
                     </a>
@@ -259,19 +239,19 @@
                 <hr>
 
                 <div>
-                    <h3 id="projectTitle" class="title is-6 is-uppercase has-text-centered mb-4" style="color: var(--text-main); opacity: 0.7;">Projet Vedette</h3>
+                    <h3 class="title is-6 is-uppercase has-text-centered mb-4" style="color: var(--text-main); opacity: 0.7;">Featured Project</h3>
                     
                     <div class="box" style="background: transparent; border: none; padding: 0; box-shadow: none;">
                         <div class="has-text-centered mb-4">
                             <span class="tag is-success is-light mb-2">Open Source</span>
                             <h4 class="title is-5 has-text-weight-bold" style="color: var(--text-main);">Data-Shield IPv4 Blocklist</h4>
-                            <p id="projectDesc" class="is-size-7" style="color: var(--text-main);">Une liste de blocage IPv4 robuste pour la sécurité réseau.</p>
+                            <p class="is-size-7" style="color: var(--text-main);">A robust IPv4 blocklist for network security.</p>
                         </div>
 
                         <a href="https://gitlab.com/duggytuxy/Data-Shield-IPv4-Blocklist" target="_blank" class="button is-fullwidth is-large is-link-card mb-2">
                             <div class="icon-text-wrapper">
                                 <span class="icon has-text-warning"><i class="fab fa-gitlab"></i></span>
-                                <span id="labelGitLab">GitLab (Principal)</span>
+                                <span>GitLab (Main)</span>
                             </div>
                             <span class="icon is-small" style="color: var(--text-main); opacity: 0.5;"><i class="fas fa-external-link-alt"></i></span>
                         </a>
@@ -280,25 +260,25 @@
                             <div class="column is-6">
                                 <a href="https://github.com/duggytuxy/Data-Shield_IPv4_Blocklist" target="_blank" class="button is-fullwidth is-link-card is-justify-content-center">
                                     <span class="icon is-small mr-2"><i class="fab fa-github"></i></span>
-                                    <span id="labelGitHub" class="is-size-7">GitHub (Miroir)</span>
+                                    <span class="is-size-7">GitHub (Mirror)</span>
                                 </a>
                             </div>
                             <div class="column is-6">
                                 <a href="https://bitbucket.org/duggytuxy/data-shield-ipv4-blocklist/src/main/" target="_blank" class="button is-fullwidth is-link-card is-justify-content-center">
                                     <span class="icon has-text-info is-small mr-2"><i class="fab fa-bitbucket"></i></span>
-                                    <span id="labelBitBucket" class="is-size-7">BitBucket (Miroir)</span>
+                                    <span class="is-size-7">BitBucket (Mirror)</span>
                                 </a>
                             </div>
                             <div class="column is-6">
                                 <a href="https://codeberg.org/duggytuxy21/Data-Shield_IPv4_Blocklist" target="_blank" class="button is-fullwidth is-link-card is-justify-content-center">
                                     <span class="icon has-text-info is-small mr-2"><i class="fas fa-mountain"></i></span>
-                                    <span id="labelCodeberg" class="is-size-7">Codeberg (Miroir)</span>
+                                    <span class="is-size-7">Codeberg (Mirror)</span>
                                 </a>
                             </div>
                             <div class="column is-6">
                                 <a href="https://ko-fi.com/laurentmduggytuxy" target="_blank" class="button is-fullwidth is-link-card is-justify-content-center">
                                     <span class="icon has-text-danger is-small mr-2"><i class="fas fa-mug-hot"></i></span>
-                                    <span id="labelKofi" class="is-size-7">Faire un don</span>
+                                    <span class="is-size-7">Donate (Ko-Fi)</span>
                                 </a>
                             </div>
                         </div>
@@ -306,7 +286,7 @@
                 </div>
 
                 <footer class="footer has-text-centered is-size-7" style="color: var(--text-main); opacity: 0.7;">
-                    <p>&copy; <span id="year"></span> Laurent Minne. <span id="footerText">Fait avec passion.</span></p>
+                    <p>&copy; <span id="year"></span> Laurent Minne. <span>Made with passion.</span></p>
                 </footer>
 
             </div>
@@ -338,81 +318,6 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             setTheme(newTheme);
         });
-
-        // --- 3. Toggle Dropdown (Mobile Fix) ---
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            document.getElementById('langDropdown').classList.toggle('is-active');
-        }
-
-        document.addEventListener('click', () => {
-            document.getElementById('langDropdown').classList.remove('is-active');
-        });
-
-        // --- 4. Gestion Multilingue (i18n) ---
-        const translations = {
-            fr: {
-                bio: "Ingénieur Sécurité | Cybersécurité & Passionné d'Open Source",
-                socialTitle: "Mes Réseaux & CV",
-                labelWeb: "Mon Blog",
-                labelCV: "Mon CV",
-                projectTitle: "Projet Vedette",
-                projectDesc: "Une liste de blocage IPv4 robuste pour la sécurité réseau.",
-                footerText: "Fait avec passion.",
-                labelKofi: "Faire un don",
-                labelGitLab: "GitLab (Principal)",
-                labelGitHub: "GitHub (Miroir)",
-                labelBitBucket: "BitBucket (Miroir)",
-                labelCodeberg: "Codeberg (Miroir)"
-            },
-            en: {
-                bio: "Security | Cybersecurity Engineer & Open Source Enthusiast",
-                socialTitle: "My Networks & Resume",
-                labelWeb: "My Blog",
-                labelCV: "My Resume",
-                projectTitle: "Featured Project",
-                projectDesc: "A robust IPv4 blocklist for network security.",
-                footerText: "Made with passion.",
-                labelKofi: "Donate",
-                labelGitLab: "GitLab (Main)",
-                labelGitHub: "GitHub (Mirror)",
-                labelBitBucket: "BitBucket (Mirror)",
-                labelCodeberg: "Codeberg (Mirror)"
-            },
-            es: {
-                bio: "Ingeniero de Seguridad | Ciberseguridad y apasionado del Open Source",
-                socialTitle: "Mis Redes y CV",
-                labelWeb: "Mi Blog",
-                labelCV: "Mi Currículum",
-                projectTitle: "Proyecto Destacado",
-                projectDesc: "Una lista de bloqueo IPv4 robusta para seguridad de red.",
-                footerText: "Hecho con pasión.",
-                labelKofi: "Hacer donación",
-                labelGitLab: "GitLab (Principal)",
-                labelGitHub: "GitHub (Espejo)",
-                labelBitBucket: "BitBucket (Espejo)",
-                labelCodeberg: "Codeberg (Espejo)"
-            }
-        };
-
-        function setLanguage(lang) {
-            const t = translations[lang];
-            document.getElementById('bioText').textContent = t.bio;
-            document.getElementById('socialTitle').textContent = t.socialTitle;
-            document.getElementById('labelWeb').textContent = t.labelWeb;
-            document.getElementById('labelCV').textContent = t.labelCV;
-            document.getElementById('projectTitle').textContent = t.projectTitle;
-            document.getElementById('projectDesc').textContent = t.projectDesc;
-            document.getElementById('footerText').textContent = t.footerText;
-            document.getElementById('labelKofi').textContent = t.labelKofi;
-            document.getElementById('labelGitLab').textContent = t.labelGitLab;
-            document.getElementById('labelGitHub').textContent = t.labelGitHub;
-            document.getElementById('labelBitBucket').textContent = t.labelBitBucket;
-            document.getElementById('labelCodeberg').textContent = t.labelCodeberg;
-            document.documentElement.lang = lang;
-            
-            document.getElementById('langDropdown').classList.remove('is-active');
-        }
     </script>
 </body>
 </html>
